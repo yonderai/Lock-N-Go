@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Registration</title>
+
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/admin_register.css' %}">
+
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        rel="stylesheet"
+    >
+
+</head>
+<body>
+
+<!-- NAVBAR -->
+
+{% include 'includes/navbar.html' %}
+
+<!-- FORM SECTION -->
+
+<section class="admin-register-section">
+
+    <div class="form-container">
+
+        <h2>
+            Parking Admin Registration
+        </h2>
+
+        <!-- ERROR MESSAGE -->
+
+        {% if error %}
+
+        <p
+        style="
+        color:red;
+        text-align:center;
+        font-weight:bold;
+        margin-bottom:15px;
+        "
+        >
+
+            {{ error }}
+
+        </p>
+
+        {% endif %}
+
+        <!-- FORM -->
+
+        <form
+            method="POST"
+        >
+
+            {% csrf_token %}
+
+            <input
+                type="text"
+                name="name"
+                placeholder="Full Name"
+                required
+            >
+
+            <input
+                type="text"
+                name="username"
+                placeholder="Username"
+                required
+            >
+
+            <input
+                type="email"
+                name="email"
+                placeholder="Email Address"
+                required
+            >
+
+            <input
+                type="text"
+                name="phone"
+                placeholder="Phone Number"
+                required
+            >
+
+            <input
+                type="text"
+                name="Vechical Number"
+                placeholder="Vechical Number"
+                required
+            >
+
+            <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                required
+            >
+
+            <button
+                type="submit"
+            >
+
+                <i class="fa-solid fa-user-plus"></i>
+
+                Register Admin
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+<!-- DROPDOWN SCRIPT -->
+
+<script>
+
+    const dropdownBtn =
+    document.getElementById(
+        'userDropdownBtn'
+    );
+
+    const dropdownMenu =
+    document.getElementById(
+        'dropdownMenu'
+    );
+
+    dropdownBtn.addEventListener(
+        'click',
+        function(){
+
+            dropdownMenu.classList.toggle(
+                'active'
+            );
+
+        }
+    );
+
+    window.addEventListener(
+        'click',
+        function(e){
+
+            if(
+
+                !dropdownBtn.contains(
+                    e.target
+                )
+
+                &&
+
+                !dropdownMenu.contains(
+                    e.target
+                )
+
+            ){
+
+                dropdownMenu.classList.remove(
+                    'active'
+                );
+
+            }
+
+        }
+    );
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,133 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial;
+}
+
+/* BODY */
+
+body{
+    background:#f1f5f9;
+
+    margin:0;
+
+    overflow-x:auto;
+}
+
+/* RECORD SECTION */
+
+.records-section{
+    padding-top:120px;
+
+    padding-left:40px;
+
+    padding-right:40px;
+
+    padding-bottom:40px;
+
+    width:100%;
+}
+
+/* CONTAINER */
+
+.container{
+    width:100%;
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:25px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,0.05);
+
+    overflow-x:auto;
+
+    box-sizing:border-box;
+}
+/* PAGE TITLE */
+
+h1{
+    color:#0f172a;
+    margin-bottom:30px;
+    font-size:42px;
+}
+
+/* TABLE */
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:1400px;
+}
+
+/* TABLE HEAD */
+
+table th{
+    background:#2563eb;
+    color:white;
+    padding:18px;
+    text-align:center;
+    font-size:16px;
+}
+
+/* TABLE BODY */
+
+table td{
+    border:1px solid #e2e8f0;
+    padding:20px;
+    text-align:center;
+    vertical-align:middle;
+}
+
+/* IMAGES */
+
+table img{
+    width:120px;
+    border-radius:12px;
+    margin:5px;
+}
+
+/* DOCUMENT LINK */
+
+table a{
+    text-decoration:none;
+}
+
+/* STATUS BUTTON */
+
+.status-btn{
+    color:white;
+    padding:12px 20px;
+    border-radius:12px;
+    text-decoration:none;
+    font-weight:bold;
+    display:inline-block;
+}
+
+/* COLORS */
+
+.red{
+    background:red;
+}
+
+.yellow{
+    background:gold;
+    color:black;
+}
+
+.green{
+    background:green;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1200px){
+
+    .container{
+        margin-left:20px;
+        margin-right:20px;
+    }
+
+}

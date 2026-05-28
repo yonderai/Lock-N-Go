@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Owner Records</title>
+
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'css/records.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+    <!-- NAVBAR -->
+
+{% include 'includes/navbar.html' %}
+
+    <section class="records-section">
+
+    <div class="container">
+
+        <h1>Owner Records</h1>
+
+        <table>
+
+            <tr>
+
+                <th>Name</th>
+
+                <th>Username</th>
+
+                <th>Phone</th>
+
+                <th>Email</th>
+
+                <th>Password</th>
+
+                <th>Parking Name</th>
+
+                <th>Parking Image</th>
+
+                <th>Govt ID</th>
+
+                <th>Parking Documents</th>
+
+                <th>Status</th>
+
+            </tr>
+
+            {% for owner in owners %}
+
+            <tr>
+
+                <td>{{ owner.name }}</td>
+
+                <td>{{ owner.username }}</td>
+
+                <td>{{ owner.phone }}</td>
+
+                <td>{{ owner.email }}</td>
+
+                <td>{{ owner.password }}</td>
+
+                <td>{{ owner.parking_name }}</td>
+
+<td>
+
+    {% for image in owner.parking_images %}
+
+        <img src="{{ image }}" width="60" height="60">
+
+    {% endfor %}
+
+</td>
+
+<td>
+
+    {% for govt in owner.govt_ids %}
+
+        <img src="{{ govt }}" width="60" height="60">
+
+    {% endfor %}
+
+</td>
+
+<!-- PARKING DOCUMENTS -->
+
+<td>
+
+    {% for doc in owner.parking_documents %}
+
+        <img src="{{ doc }}" width="60" height="60">
+
+    {% endfor %}
+
+</td>
+
+<!-- STATUS -->
+
+<td>
+
+{% if owner.status %}
+
+<a href="/change-status/{{ owner.id }}/">
+
+<button
+style="
+padding:6px 14px;
+border:none;
+border-radius:6px;
+color:white;
+font-weight:bold;
+cursor:pointer;
+
+{% if owner.status == 'red' %}
+background:red;
+{% elif owner.status == 'yellow' %}
+background:orange;
+{% else %}
+background:green;
+{% endif %}
+">
+
+{{ owner.status }}
+
+</button>
+
+</a>
+
+{% else %}
+
+<a href="/change-status/{{ owner.id }}/">
+
+<button
+style="
+padding:6px 14px;
+border:none;
+border-radius:6px;
+background:red;
+color:white;
+font-weight:bold;
+cursor:pointer;
+">
+
+red
+
+</button>
+
+</a>
+
+{% endif %}
+
+</td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+    </section>
+<script>
+
+    const dropdownBtn = document.getElementById('userDropdownBtn');
+
+    const dropdownMenu = document.getElementById('dropdownMenu');
+
+    dropdownBtn.addEventListener('click', function(){
+
+        dropdownMenu.classList.toggle('active');
+
+    });
+
+    // CLICK OUTSIDE CLOSE
+
+    window.addEventListener('click', function(e){
+
+        if(
+
+            !dropdownBtn.contains(e.target)
+
+            &&
+
+            !dropdownMenu.contains(e.target)
+
+        ){
+
+            dropdownMenu.classList.remove('active');
+
+        }
+
+    });
+
+</script>
+</body>
+</html>

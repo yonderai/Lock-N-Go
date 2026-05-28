@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Payment</title>
+
+    {% load static %}
+
+    <link rel="stylesheet"
+          href="{% static 'css/dashboard.css' %}">
+
+    <link rel="stylesheet"
+          href="{% static 'css/payment.css' %}">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          rel="stylesheet">
+
+</head>
+<body>
+
+{% include 'includes/navbar.html' %}
+
+<div class="payment-wrapper">
+
+    <div class="payment-card">
+
+        <!-- HEADER -->
+
+        <div class="payment-header">
+
+            <i class="fa-solid fa-credit-card"></i>
+
+            <h2>
+                SmartPark Payment
+            </h2>
+
+            <p>
+                Review booking details before payment
+            </p>
+
+        </div>
+
+        <!-- FORM -->
+
+        <form
+            method="POST"
+            class="payment-form"
+        >
+
+            {% csrf_token %}
+
+            <!-- PARKING DETAILS -->
+
+            <div class="section-box">
+
+                <h3>
+
+                    <i class="fa-solid fa-square-parking"></i>
+
+                    Parking Details
+
+                </h3>
+
+                <div class="field">
+
+                    <label>
+                        Parking Name
+                    </label>
+
+                    <input
+                        type="text"
+                        value="{{ parking.parking_name }}"
+                        readonly
+                    >
+
+                </div>
+
+                <div class="field">
+
+                    <label>
+                        Address
+                    </label>
+
+                    <textarea readonly>{{ parking.address }}</textarea>
+
+                </div>
+
+            </div>
+
+            <!-- USER DETAILS -->
+
+            <div class="section-box">
+
+                <h3>
+
+                    <i class="fa-solid fa-user"></i>
+
+                    User Details
+
+                </h3>
+
+                <div class="field">
+
+                    <label>
+                        Name
+                    </label>
+
+                    <input
+                        type="text"
+                        value="{{ user.name }}"
+                        readonly
+                    >
+
+                </div>
+
+                <div class="field">
+
+                    <label>
+                        Phone
+                    </label>
+
+                    <input
+                        type="text"
+                        value="{{ user.phone }}"
+                        readonly
+                    >
+
+                </div>
+
+                <div class="field">
+
+                    <label>
+                        Vehicle Number
+                    </label>
+
+                    <input
+                        type="text"
+                        value="{{ user.vehicle_number }}"
+                        readonly
+                    >
+
+                </div>
+
+            </div>
+
+            <!-- BOOKING DETAILS -->
+
+            <div class="section-box">
+
+                <h3>
+
+                    <i class="fa-solid fa-car"></i>
+
+                    Booking Details
+
+                </h3>
+
+                <!-- Vehicle -->
+
+                <div class="field">
+
+                    <label>
+                        Vehicle Type
+                    </label>
+
+                    <select
+                        name="vehicle_type"
+                        id="vehicleType"
+                        required
+                    >
+
+                        <option value="">
+                            Select Vehicle
+                        </option>
+
+                        <option
+                            value="Car"
+                            data-price="{{ parking.car_price }}"
+                        >
+                            Car
+                        </option>
+
+                        <option
+                            value="Bike"
+                            data-price="{{ parking.bike_price }}"
+                        >
+                            Bike
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <!-- Date -->
+
+                <div class="field">
+
+                    <label>
+                        Booking Date
+                    </label>
+
+                    <input
+                        type="date"
+                        name="booking_date"
+                        required
+                    >
+
+                </div>
+
+                <!-- Entry -->
+
+                <div class="field">
+
+                    <label>
+                        Entry Time
+                    </label>
+
+                    <input
+                        type="time"
+                        id="entryTime"
+                        name="entry_time"
+                        required
+                    >
+
+                </div>
+
+                <!-- Exit -->
+
+                <div class="field">
+
+                    <label>
+                        Exit Time
+                    </label>
+
+                    <input
+                        type="time"
+                        id="exitTime"
+                        name="exit_time"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+            <!-- PRICE -->
+
+            <div
+                class="price-card"
+                id="price"
+            >
+
+                ₹ Select Vehicle
+
+            </div>
+
+            <!-- BUTTON -->
+
+            <button
+                type="submit"
+                class="pay-btn"
+            >
+
+                <i class="fa-solid fa-lock"></i>
+
+                Confirm Payment
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- SCRIPT -->
+
+<script>
+
+const vehicleType =
+document.getElementById(
+    "vehicleType"
+);
+
+const priceBox =
+document.getElementById(
+    "price"
+);
+
+const entryTime =
+document.getElementById(
+    "entryTime"
+);
+
+const exitTime =
+document.getElementById(
+    "exitTime"
+);
+
+function calculatePrice(){
+
+    const selected =
+    vehicleType.options[
+        vehicleType.selectedIndex
+    ];
+
+    const hourlyPrice =
+    selected.getAttribute(
+        "data-price"
+    );
+
+    const start =
+    entryTime.value;
+
+    const end =
+    exitTime.value;
+
+    if(
+        hourlyPrice &&
+        start &&
+        end
+    ){
+
+        let startTime =
+        new Date(
+            "1970-01-01T" +
+            start +
+            ":00"
+        );
+
+        let endTime =
+        new Date(
+            "1970-01-01T" +
+            end +
+            ":00"
+        );
+
+        let diff =
+        (
+            endTime -
+            startTime
+        ) /
+        (1000 * 60 * 60);
+
+        if(diff <= 0){
+
+            priceBox.innerHTML =
+            "Exit time must be after entry";
+
+            return;
+        }
+
+        let total =
+        diff *
+        parseFloat(
+            hourlyPrice
+        );
+
+        priceBox.innerHTML =
+
+            "₹ " +
+
+            total +
+
+            " (" +
+
+            diff +
+
+            " hrs)";
+    }
+
+}
+
+vehicleType.addEventListener(
+    "change",
+    calculatePrice
+);
+
+entryTime.addEventListener(
+    "change",
+    calculatePrice
+);
+
+exitTime.addEventListener(
+    "change",
+    calculatePrice
+);
+
+</script>
+
+</body>
+</html>

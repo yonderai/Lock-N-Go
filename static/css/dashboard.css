@@ -1,0 +1,506 @@
+/* =========================
+   GLOBAL
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f1f5f9;
+    overflow-x:hidden;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:90px;
+    background:white;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 50px;
+    z-index:9999;
+    box-shadow:0 2px 10px rgba(0,0,0,.05);
+}
+
+.logo{
+    font-size:30px;
+    font-weight:bold;
+    color:#2563eb;
+}
+
+.nav-links{
+    display:flex;
+    list-style:none;
+    gap:30px;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:#0f172a;
+    font-weight:600;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:#2563eb;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    width:100%;
+    padding:120px 60px 40px;
+}
+
+.hero-content{
+    background:
+    linear-gradient(
+        135deg,
+        #2563eb,
+        #1e3a8a
+    );
+    padding:70px;
+    border-radius:30px;
+    color:white;
+}
+
+.hero-content h1{
+    font-size:52px;
+    margin-bottom:20px;
+}
+
+.hero-content p{
+    font-size:20px;
+    line-height:1.6;
+    margin-bottom:30px;
+}
+
+.hero-content button{
+    padding:16px 30px;
+    border:none;
+    background:white;
+    color:#2563eb;
+    border-radius:12px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.hero-content button:hover{
+    transform:translateY(-4px);
+}
+
+/* =========================
+   SEARCH + COMPARE TOP
+========================= */
+
+.compare-top{
+    display:flex;
+    justify-content:flex-end;
+    padding:20px 40px;
+}
+
+.compare-btn{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:12px 18px;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:15px;
+}
+
+.parking-search-container{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    padding:10px 40px 30px;
+}
+
+.parking-search-container input{
+    width:350px;
+    padding:14px;
+    border:1px solid #cbd5e1;
+    border-radius:12px;
+    outline:none;
+    font-size:15px;
+}
+
+.parking-search-container button{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:14px 20px;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:15px;
+}
+
+/* =========================
+   PARKING GRID
+========================= */
+
+.cards-section{
+
+    width:100%;
+
+    display:grid !important;
+
+    grid-template-columns:
+    repeat(3, 1fr) !important;
+
+    gap:30px;
+
+    padding:40px;
+
+    align-items:start;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.parking-card{
+    width:100%;
+    background:white;
+    border-radius:20px;
+    padding:18px;
+    box-shadow:
+    0 8px 25px
+    rgba(0,0,0,.08);
+    transition:.3s;
+    overflow:hidden;
+        display:flex;
+
+    flex-direction:column;
+}
+
+.parking-card:hover{
+    transform:translateY(-8px);
+}
+
+.parking-image{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+    border-radius:14px;
+    margin-bottom:15px;
+}
+
+.parking-card h3{
+    color:#0f172a;
+    margin-bottom:10px;
+}
+
+.parking-card p{
+    color:#475569;
+    margin-bottom:8px;
+}
+
+.price{
+    font-size:22px;
+    font-weight:bold;
+    color:#2563eb;
+}
+
+/* =========================
+   CARD BUTTONS
+========================= */
+
+.parking-buttons{
+    display:flex;
+    gap:10px;
+    margin-top:18px;
+}
+
+.map-btn,
+.book-btn{
+    flex:1;
+    text-align:center;
+    color:white;
+    padding:12px;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.map-btn{
+    background:#22c55e;
+}
+
+.book-btn{
+    background:#2563eb;
+}
+
+.map-btn:hover,
+.book-btn:hover{
+    opacity:.9;
+}
+
+/* =========================
+   USER MENU
+========================= */
+
+.user-menu{
+    position:relative;
+}
+
+.user-btn{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.dropdown{
+    position:absolute;
+    top:60px;
+    right:0;
+    width:320px;
+    background:white;
+    border-radius:20px;
+    padding:25px;
+    box-shadow:
+    0 10px 30px
+    rgba(0,0,0,.1);
+    display:none;
+    z-index:1000;
+}
+
+.dropdown.active{
+    display:block;
+}
+
+.profile-top{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.avatar{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    margin-bottom:15px;
+}
+
+.profile-top h3{
+    color:#0f172a;
+    margin-bottom:8px;
+}
+
+.profile-top p{
+    color:#64748b;
+}
+
+.dropdown-info p{
+    margin-bottom:12px;
+    color:#334155;
+}
+
+.logout-link{
+    display:block;
+    text-align:center;
+    margin-top:20px;
+    background:#2563eb;
+    color:white;
+    text-decoration:none;
+    padding:14px;
+    border-radius:12px;
+}
+
+.logout-link:hover{
+    background:#1d4ed8;
+}
+
+/* =========================
+   ADMIN BUTTON
+========================= */
+
+.admin-register-btn{
+    background:#1abc9c;
+    color:white !important;
+    padding:10px 18px;
+    border-radius:8px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.admin-register-btn:hover{
+    background:#16a085;
+}
+
+/* =========================
+   COMPARE MODAL
+========================= */
+
+.compare-modal{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.55);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:99999;
+    opacity:0;
+    visibility:hidden;
+    transition:.3s;
+}
+
+.compare-modal.active{
+    display:flex;
+    opacity:1;
+    visibility:visible;
+}
+
+.compare-content{
+    width:90%;
+    max-width:950px;
+    background:white;
+    border-radius:25px;
+    padding:28px;
+    box-shadow:
+    0 15px 40px
+    rgba(0,0,0,.18);
+    transform:translateY(-30px);
+    transition:.3s;
+    max-height:85vh;
+    overflow-y:auto;
+}
+
+.compare-modal.active
+.compare-content{
+    transform:translateY(0);
+}
+
+.compare-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.close-modal{
+    font-size:30px;
+    cursor:pointer;
+}
+
+.compare-search{
+    display:flex;
+    gap:10px;
+    margin-bottom:25px;
+}
+
+.compare-search input{
+    flex:1;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:10px;
+}
+
+.compare-search button{
+    background:#22c55e;
+    color:white;
+    border:none;
+    padding:12px 18px;
+    border-radius:10px;
+}
+
+.compare-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.compare-card{
+    border:1px solid #e2e8f0;
+    border-radius:18px;
+    padding:18px;
+}
+
+.compare-card img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+    border-radius:12px;
+    margin-bottom:15px;
+}
+
+.compare-card a{
+    display:inline-block;
+    margin-top:10px;
+    background:#2563eb;
+    color:white;
+    padding:10px 15px;
+    border-radius:10px;
+    text-decoration:none;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:992px){
+
+    .cards-section{
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+    .navbar{
+        flex-direction:column;
+        gap:15px;
+        height:auto;
+        padding:20px;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .cards-section{
+        grid-template-columns:1fr;
+    }
+
+    .hero{
+        padding:120px 20px 30px;
+    }
+
+    .hero-content{
+        padding:35px;
+    }
+
+    .hero-content h1{
+        font-size:34px;
+    }
+
+
+    .parking-search-container input{
+        width:100%;
+    }
+
+    .compare-grid{
+        grid-template-columns:1fr;
+    }
+
+}

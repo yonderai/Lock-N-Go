@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owner Registration</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            background:linear-gradient(135deg,#0f172a,#1e293b);
+            padding:40px 20px;
+        }
+
+        .container{
+            max-width:700px;
+            margin:auto;
+            background:white;
+            padding:40px;
+            border-radius:20px;
+            box-shadow:0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .title{
+            text-align:center;
+            margin-bottom:30px;
+        }
+
+        .title h1{
+            color:#0f172a;
+            margin-bottom:10px;
+        }
+
+        .section-title{
+            margin-top:30px;
+            margin-bottom:15px;
+            color:#2563eb;
+            font-size:20px;
+            font-weight:bold;
+        }
+
+        .input-box{
+            margin-bottom:18px;
+        }
+
+        .input-box input,
+        .input-box textarea{
+            width:100%;
+            padding:14px;
+            border:1px solid #ccc;
+            border-radius:10px;
+            font-size:15px;
+            outline:none;
+            transition:0.3s;
+        }
+
+        .input-box input:focus,
+        .input-box textarea:focus{
+            border-color:#2563eb;
+        }
+
+        textarea{
+            resize:none;
+            height:120px;
+        }
+
+        .file-label{
+            margin-bottom:8px;
+            display:block;
+            font-weight:bold;
+            color:#374151;
+        }
+
+        .btn{
+            width:100%;
+            padding:15px;
+            border:none;
+            background:#2563eb;
+            color:white;
+            font-size:17px;
+            border-radius:10px;
+            cursor:pointer;
+            transition:0.3s;
+            margin-top:20px;
+        }
+
+        .btn:hover{
+            background:#1d4ed8;
+        }
+
+        .bottom-text{
+            text-align:center;
+            margin-top:20px;
+        }
+
+        .bottom-text a{
+            text-decoration:none;
+            color:#2563eb;
+            font-weight:bold;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="title">
+            <h1>Owner Registration</h1>
+            <p>Register your parking business</p>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            <div class="section-title">
+                Owner Details
+            </div>
+
+            <div class="input-box">
+                <input type="text" name="name" placeholder="Full Name" required>
+            </div>
+
+            <div class="input-box">
+                <input type="text" name="phone" placeholder="Phone Number" required>
+            </div>
+
+            <div class="input-box">
+                <input type="email" name="email" placeholder="Email Address" required>
+            </div>
+
+            <div class="input-box">
+                <input type="text" name="username" placeholder="Username" required>
+            </div>
+
+            <div class="input-box">
+                <input type="password" name="password" placeholder="Password" required>
+            </div>
+
+            <div class="section-title">
+                Parking Details
+            </div>
+
+            <div class="input-box">
+                <input type="text" name="parking_name" placeholder="Parking Name" required>
+            </div>
+
+            <div class="input-box">
+                <label class="file-label">
+                    Upload Parking Photos
+                </label>
+
+                <input type="file" name="parking_images" multiple>
+            </div>
+
+            <div class="input-box">
+                <label class="file-label">
+                    Upload Parking Documents
+                </label>
+
+                <input type="file" name="parking_docs" multiple>
+            </div>
+
+            <div class="input-box">
+                <label class="file-label">
+                    Upload GOVT ID Photo
+                </label>
+
+                <input type="file" name="govt_id" multiple>
+            </div>
+
+            <div class="input-box">
+                <input type="url" name="google_map" placeholder="Google Map Link" required>
+            </div>
+
+            <div class="input-box">
+                <textarea name="address" placeholder="Parking Address" required></textarea>
+            </div>
+
+            <div class="input-box">
+                <input type="number" name="number_of_car_slots" placeholder="Number of Car Slots" required>
+            </div>
+
+             <div class="input-box">
+                <input type="number" name="price_per_hour for cars" placeholder="Price Per Hour for Cars" required>
+            </div>
+
+             <div class="input-box">
+                <input type="number" name="number_of_bike_slots" placeholder="Number of Bike Slots" required>
+            </div>
+
+             <div class="input-box">
+                <input type="number" name="price_per_hour for bikes" placeholder="Price Per Hour for Bikes" required>
+            </div>
+
+            <button type="submit" class="btn">
+                Register Parking
+            </button>
+
+        </form>
+
+        <div class="bottom-text">
+            Already have an account?
+            <a href="/">Login</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

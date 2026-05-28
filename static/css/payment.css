@@ -1,0 +1,255 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+
+    background:#f1f5f9;
+
+    min-height:100vh;
+}
+
+/* WRAPPER */
+
+.payment-wrapper{
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:flex-start;
+
+    padding-top:120px;
+
+    padding-bottom:40px;
+
+    padding-left:20px;
+
+    padding-right:20px;
+}
+
+/* CARD */
+
+.payment-card{
+
+    width:100%;
+
+    max-width:750px;
+
+    background:white;
+
+    border-radius:25px;
+
+    box-shadow:
+    0 10px 35px
+    rgba(0,0,0,0.08);
+
+    overflow:hidden;
+}
+
+/* HEADER */
+
+.payment-header{
+
+    background:
+    linear-gradient(
+        135deg,
+        #2563eb,
+        #1d4ed8
+    );
+
+    color:white;
+
+    text-align:center;
+
+    padding:35px;
+}
+
+.payment-header i{
+
+    font-size:42px;
+
+    margin-bottom:12px;
+}
+
+.payment-header h2{
+
+    font-size:28px;
+
+    margin-bottom:8px;
+}
+
+.payment-header p{
+
+    font-size:15px;
+
+    opacity:.9;
+}
+
+/* FORM */
+
+.payment-form{
+
+    padding:35px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:25px;
+}
+
+/* SECTION */
+
+.section-box{
+
+    border:1px solid #e2e8f0;
+
+    border-radius:18px;
+
+    padding:22px;
+
+    background:#f8fafc;
+}
+
+.section-box h3{
+
+    color:#0f172a;
+
+    margin-bottom:20px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+/* FIELD */
+
+.field{
+
+    display:flex;
+
+    flex-direction:column;
+
+    margin-bottom:16px;
+}
+
+.field label{
+
+    margin-bottom:8px;
+
+    color:#475569;
+
+    font-size:14px;
+
+    font-weight:600;
+}
+
+.field input,
+.field select,
+.field textarea{
+
+    width:100%;
+
+    padding:14px;
+
+    border:1px solid #cbd5e1;
+
+    border-radius:12px;
+
+    background:white;
+
+    outline:none;
+
+    font-size:15px;
+}
+
+.field textarea{
+
+    resize:none;
+
+    height:80px;
+}
+
+.field input[readonly],
+.field textarea[readonly]{
+
+    background:#eef2f7;
+
+    color:#334155;
+}
+
+/* PRICE */
+
+.price-card{
+
+    background:
+    linear-gradient(
+        135deg,
+        #22c55e,
+        #16a34a
+    );
+
+    color:white;
+
+    text-align:center;
+
+    padding:22px;
+
+    border-radius:18px;
+
+    font-size:24px;
+
+    font-weight:700;
+}
+
+/* BUTTON */
+
+.pay-btn{
+
+    border:none;
+
+    padding:16px;
+
+    background:#0f172a;
+
+    color:white;
+
+    border-radius:14px;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.pay-btn:hover{
+
+    background:#1e293b;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .payment-form{
+
+        padding:22px;
+    }
+
+    .payment-header{
+
+        padding:28px;
+    }
+
+}

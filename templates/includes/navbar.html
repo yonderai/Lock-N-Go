@@ -1,0 +1,132 @@
+<nav class="navbar">
+
+    <div class="logo">
+        SmartPark
+    </div>
+
+    <ul class="nav-links">
+
+    <li>
+        <a href="/dashboard/">Home</a>
+    </li>
+
+
+
+
+    <!-- OWNER ONLY -->
+
+    <li>
+        <a href="/owner-bookings/">
+            Owner Bookings
+        </a>
+    </li>
+
+
+    <!-- ADMIN ONLY -->
+
+    <li>
+        <a href="/admin-register/">
+            Admin Register
+        </a>
+    </li>
+
+    <li>
+        <a href="/owner-records/">
+            Owner Records
+        </a>
+    </li>
+        <li>
+        <a href="/records/">Records</a>
+    </li>
+
+
+</ul>
+
+    <!-- USER DROPDOWN -->
+
+    <div class="user-menu">
+
+        <button
+            class="user-btn"
+            id="userDropdownBtn"
+        >
+
+            {{ name }}
+
+            ▼
+
+        </button>
+
+        <div
+            class="dropdown"
+            id="dropdownMenu"
+        >
+
+            <div class="profile-top">
+
+                <img
+                    src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                    class="avatar"
+                >
+
+                <h3>{{ name }}</h3>
+
+                <p>{{ email }}</p>
+
+            </div>
+
+            <div class="dropdown-info">
+
+                <p>
+                    <strong>Name:</strong>
+                    {{ name }}
+                </p>
+
+                <p>
+                    <strong>Phone:</strong>
+                    {{ phone }}
+                </p>
+
+                <p>
+                    <strong>Email:</strong>
+                    {{ email }}
+                </p>
+
+                <p>
+
+                    <strong>
+                        {% if account_type == 'User' %}
+                            Vehicle:
+                        {% else %}
+                            Parking:
+                        {% endif %}
+                    </strong>
+
+                    {{ extra }}
+
+                </p>
+
+                <p>
+
+                    <strong>
+                        Account Type:
+                    </strong>
+
+                    {{ account_type }}
+
+                </p>
+
+            </div>
+
+            <a
+                href="/"
+                class="logout-link"
+            >
+                Logout
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>

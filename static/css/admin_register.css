@@ -1,0 +1,62 @@
+.admin-register-section{
+
+    padding:60px 20px;
+    background:#f4f6f9;
+    min-height:100vh;
+
+}
+
+.form-container{
+
+    width:500px;
+    margin:auto;
+    background:white;
+    padding:35px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+
+}
+
+.form-container h2{
+
+    text-align:center;
+    margin-bottom:25px;
+    color:#333;
+
+}
+
+.form-container form{
+
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+
+}
+
+.form-container input{
+
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:15px;
+
+}
+
+.form-container button{
+
+    padding:12px;
+    border:none;
+    background:#1abc9c;
+    color:white;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:600;
+
+}
+
+.form-container button:hover{
+
+    background:#16a085;
+
+}

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SmartPark Dashboard</title>
+
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+    <!-- NAVBAR -->
+<section class="cards-section">
+{% include 'includes/navbar.html' %}
+
+    <!-- HERO SECTION -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <h1>
+                Smart Parking For Modern Cities 
+            </h1>
+
+            <p>
+                Find secure parking spaces quickly and manage bookings easily.
+            </p>
+
+            <div class="compare-top">
+
+    <button
+        id="compareOpenBtn"
+        class="compare-btn"
+    >
+
+        <i class="fa-solid fa-code-compare"></i>
+
+        Compare Parking
+
+    </button>
+
+</div>
+        <!-- SEARCH -->
+<!-- COMPARE POPUP -->
+
+<div
+    id="compareModal"
+    class="compare-modal"
+>
+
+    <div class="compare-content">
+
+        <div class="compare-header">
+
+            <h2>
+
+                Compare Parking
+
+            </h2>
+
+            <span
+                id="closeCompare"
+                class="close-modal"
+            >
+
+                ×
+
+            </span>
+
+        </div>
+
+        <div class="compare-search">
+
+            <input
+                type="text"
+                id="parkingSearch1"
+                placeholder="Search Parking 1"
+                list="parkingList"
+            >
+
+            <input
+                type="text"
+                id="parkingSearch2"
+                placeholder="Search Parking 2"
+                list="parkingList"
+            >
+
+            <datalist id="parkingList">
+
+                {% for parking in parkings %}
+
+                <option
+                    value="{{ parking.parking_name }}"
+                >
+
+                {% endfor %}
+
+            </datalist>
+
+            <button
+                onclick="compareParking()"
+            >
+
+                Compare
+
+            </button>
+
+        </div>
+
+        <!-- RESULT -->
+
+        <div
+            id="compareResult"
+            class="compare-result"
+        >
+
+        </div>
+
+    </div>
+
+</div>
+</div>
+
+        </div>
+
+
+<!-- PARKING LIST -->
+
+<!-- PARKING LIST -->
+
+<!-- PARKING LIST -->
+
+<!-- PARKING LIST -->
+
+<div class="parking-search-container">
+
+    <input
+        type="text"
+        id="parkingSearch"
+        placeholder="Search Parking..."
+    >
+
+    <button
+        id="searchBtn"
+    >
+
+        <i class="fa-solid fa-search"></i>
+
+        Search
+
+    </button>
+
+</div>
+
+    {% for parking in parkings %}
+
+    <div
+    class="card parking-card"
+    data-name="{{ parking.parking_name|lower }}"
+>
+
+        <!-- IMAGE -->
+
+        {% if parking.image %}
+        <img
+            src="{{ parking.image }}"
+            class="parking-image"
+        >
+        {% endif %}
+
+        <!-- DETAILS -->
+
+        <h3>{{ parking.parking_name }}</h3>
+
+        <p>
+            <strong>Address:</strong>
+            {{ parking.address }}
+        </p>
+
+
+
+
+        <p class="price">
+            <strong>Car Price:</strong>
+            ₹ {{ parking.car_price }}/hr
+        </p>
+
+
+
+        <p class="price">
+            <strong>Bike Price:</strong>
+            ₹ {{ parking.bike_price }}/hr
+        </p>
+        <!-- BUTTONS -->
+
+        <div class="parking-buttons">
+
+            <a
+                href="{{ parking.google_map_link }}"
+                target="_blank"
+                class="map-btn"
+            >
+                Location
+            </a>
+
+            <a
+    href="/payment/{{ parking.unique_id }}/"
+    class="book-btn"
+>
+    Book
+</a>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</section>
+
+
+
+
+    <script>
+
+    const parkingData = [
+
+    {% for parking in parkings %}
+
+    {
+
+        name:
+        "{{ parking.parking_name }}",
+
+        image:
+        "{{ parking.image }}",
+
+        address:
+        "{{ parking.address }}",
+
+        status:
+        "{{ parking.status }}",
+
+        carPrice:
+        "{{ parking.car_price }}",
+
+        bikePrice:
+        "{{ parking.bike_price }}",
+
+        carSlots:
+        "{{ parking.car_slots }}",
+
+        bikeSlots:
+        "{{ parking.bike_slots }}",
+
+        location:
+        "{{ parking.google_map_link }}"
+    },
+
+    {% endfor %}
+
+];
+
+    const dropdownBtn = document.getElementById('userDropdownBtn');
+
+    const dropdownMenu = document.getElementById('dropdownMenu');
+
+    dropdownBtn.addEventListener('click', function(){
+
+        dropdownMenu.classList.toggle('active');
+
+    });
+
+    // CLICK OUTSIDE CLOSE
+
+    window.addEventListener('click', function(e){
+
+        if(
+
+            !dropdownBtn.contains(e.target)
+
+            &&
+
+            !dropdownMenu.contains(e.target)
+
+        ){
+
+            dropdownMenu.classList.remove('active');
+
+        }
+
+    });
+
+
+
+const modal =
+document.getElementById(
+    "compareModal"
+);
+
+document
+.getElementById(
+    "compareOpenBtn"
+)
+.onclick = () => {
+
+    modal.style.display =
+    "flex";
+
+};
+
+document
+.getElementById(
+    "closeCompare"
+)
+.onclick = () => {
+
+    modal.style.display =
+    "none";
+
+};
+
+function compareParking(){
+
+    const p1 =
+    document
+    .getElementById(
+        "parkingSearch1"
+    )
+    .value;
+
+    const p2 =
+    document
+    .getElementById(
+        "parkingSearch2"
+    )
+    .value;
+
+    const park1 =
+    parkingData.find(
+        p => p.name === p1
+    );
+
+    const park2 =
+    parkingData.find(
+        p => p.name === p2
+    );
+
+    if(
+        !park1 ||
+        !park2
+    ){
+
+        alert(
+            "Select valid parking"
+        );
+
+        return;
+    }
+
+    document
+    .getElementById(
+        "compareResult"
+    )
+    .innerHTML =
+
+`
+<div class="compare-grid">
+
+    <div class="compare-card">
+
+        <img src="${park1.image}">
+
+        <h3>${park1.name}</h3>
+
+        <p>${park1.address}</p>
+
+        <p>Car Price: ₹${park1.carPrice}</p>
+
+        <p>Bike Price: ₹${park1.bikePrice}</p>
+
+        <p>Car Slots: ${park1.carSlots}</p>
+
+        <p>Bike Slots: ${park1.bikeSlots}</p>
+
+        <p>Status: ${park1.status}</p>
+
+        <a
+            href="${park1.location}"
+            target="_blank"
+        >
+            Location
+        </a>
+
+    </div>
+
+    <div class="compare-card">
+
+        <img src="${park2.image}">
+
+        <h3>${park2.name}</h3>
+
+        <p>${park2.address}</p>
+
+        <p>Car Price: ₹${park2.carPrice}</p>
+
+        <p>Bike Price: ₹${park2.bikePrice}</p>
+
+        <p>Car Slots: ${park2.carSlots}</p>
+
+        <p>Bike Slots: ${park2.bikeSlots}</p>
+
+        <p>Status: ${park2.status}</p>
+
+        <a
+            href="${park2.location}"
+            target="_blank"
+        >
+            Location
+        </a>
+
+    </div>
+
+</div>
+`;
+
+}
+
+const searchBtn =
+document.getElementById(
+    "searchBtn"
+);
+
+const searchInput =
+document.getElementById(
+    "parkingSearch"
+);
+
+searchBtn.addEventListener(
+    "click",
+    searchParking
+);
+
+searchInput.addEventListener(
+    "keyup",
+    searchParking
+);
+
+function searchParking(){
+
+    const value =
+    searchInput.value
+    .toLowerCase();
+
+    const cards =
+    document.querySelectorAll(
+        ".parking-card"
+    );
+
+    cards.forEach(
+        function(card){
+
+            const name =
+            card.dataset.name;
+
+            if(
+                name.includes(
+                    value
+                )
+            ){
+
+                card.style.display =
+                "flex";
+
+            }
+            else{
+
+                card.style.display =
+                "none";
+
+            }
+
+        }
+    );
+
+}
+</script>
+</body>
+</html>
