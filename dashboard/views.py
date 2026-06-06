@@ -35,6 +35,16 @@ def dashboard(request):
         )
 
         # Slots
+        
+        parking["car_slots"] = parking.get(
+            "number_of_car_slots",
+            0
+        )
+
+        parking["bike_slots"] = parking.get(
+            "number_of_bike_slots",
+            0
+        )
 
 
         # First Image
@@ -471,5 +481,92 @@ def payment(request, parking_id):
         {
             "parking": parking,
             "user": user
+        }
+    )
+    
+    # USER RECORDS
+
+def user_records(request):
+
+    users = list(
+        users_collection.find()
+    )
+
+    selected_user = None
+
+    payments = []
+
+    user_id = request.GET.get(
+        "user_id"
+    )
+
+    if user_id:
+
+        selected_user = users_collection.find_one(
+            {
+                "unique_id": user_id
+            }
+        )
+
+        payments = list(
+            payments_collection.find(
+                {
+                    "user_id": user_id
+                }
+            )
+        )
+
+    return render(
+        request,
+        "dashboard/user_records.html",
+        {
+            "users": users,
+            "user_data": selected_user,
+            "payments": payments
+        }
+    )
+
+# OWNER BOOKING RECORDS
+
+def owner_booking_records(request):
+
+    owners = list(
+        owners_collection.find()
+    )
+
+    owner_data = None
+
+    payments = []
+
+    owner_id = request.GET.get(
+        "owner_id"
+    )
+
+    if owner_id:
+
+        owner_data = owners_collection.find_one(
+            {
+                "unique_id": owner_id
+            }
+        )
+
+        if owner_data:
+
+            payments = list(
+                payments_collection.find(
+                    {
+                        "owner_name":
+                        owner_data["name"]
+                    }
+                )
+            )
+
+    return render(
+        request,
+        "dashboard/owner_booking_records.html",
+        {
+            "owners": owners,
+            "owner_data": owner_data,
+            "payments": payments
         }
     )

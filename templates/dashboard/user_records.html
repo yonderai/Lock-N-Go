@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Records</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --blue-primary: #1d4ed8;
+            --blue-dark: #1e3a8a;
+            --blue-light: #dbeafe;
+            --blue-mid: #2563eb;
+            --green: #16a34a;
+            --green-light: #dcfce7;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --border: #e2e8f0;
+            --bg-page: #f1f5f9;
+            --bg-card: #ffffff;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+            --radius-lg: 16px;
+            --radius-md: 10px;
+            --radius-sm: 6px;
+        }
+
+        body {
+            font-family: 'Sora', sans-serif;
+            background: var(--bg-page);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        /* ── Page Layout ── */
+        .page-wrapper {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .records-container {
+            flex: 1;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px 32px 48px;
+        }
+
+        /* ── Page Header ── */
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            padding-top: 8px;
+        }
+
+        .page-header h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .page-header .header-sub {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* ── Cards ── */
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+            overflow: visible;
+        }
+
+        .card-body {
+            padding: 24px 28px;
+        }
+
+        /* ── Search Card ── */
+        .search-card {
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 100;
+        }
+
+        .search-card .card-body {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .search-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 10px;
+            flex: 1;
+            width: 100%;
+            align-items: center;
+        }
+
+        .search-form input {
+            flex: 1;
+            padding: 11px 16px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-md);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            color: var(--text-primary);
+            background: #f8fafc;
+            transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+            outline: none;
+        }
+
+        .search-form input:focus {
+            border-color: var(--blue-mid);
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+
+        .search-form input::placeholder {
+            color: var(--text-muted);
+        }
+
+        /* TomSelect wrapper */
+        .search-form .ts-wrapper {
+            flex: 1;
+            min-width: 0;
+            position: relative;
+        }
+
+        /* Dropdown arrow */
+        .search-form .ts-wrapper::after {
+            content: '';
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 6px solid var(--text-muted);
+            pointer-events: none;
+            transition: transform .2s, border-top-color .2s;
+            z-index: 2;
+        }
+
+        .search-form .ts-wrapper.dropdown-active::after {
+            transform: translateY(-50%) rotate(180deg);
+            border-top-color: var(--blue-mid);
+        }
+
+        /* TomSelect control */
+        .search-form .ts-wrapper .ts-control {
+            padding: 9px 40px 9px 16px;
+            border: 1.5px solid var(--border) !important;
+            border-radius: var(--radius-md) !important;
+            font-family: 'Sora', sans-serif;
+            font-size: 0.875rem;
+            color: var(--text-primary);
+            background: #f8fafc !important;
+            box-shadow: none !important;
+            transition: border-color .2s, box-shadow .2s, background .2s;
+            cursor: pointer;
+            min-height: 44px;
+        }
+
+        .search-form .ts-wrapper.focus .ts-control,
+        .search-form .ts-wrapper.dropdown-active .ts-control {
+            border-color: var(--blue-mid) !important;
+            background: #fff !important;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, .12) !important;
+        }
+
+        .search-form .ts-wrapper .ts-control input {
+            font-family: 'Sora', sans-serif;
+            font-size: 0.875rem;
+            color: var(--text-primary);
+            flex: 1 !important;
+            min-width: 80px !important;
+            padding: 0 !important;
+            caret-color: var(--blue-mid);
+        }
+
+        .search-form .ts-wrapper .ts-control input::placeholder {
+            color: var(--text-muted);
+        }
+
+        /* Dropdown panel */
+        .search-form .ts-wrapper .ts-dropdown {
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-md);
+            box-shadow: 0 8px 32px rgba(0,0,0,.14), 0 2px 8px rgba(0,0,0,.06);
+            font-family: 'Sora', sans-serif;
+            font-size: 0.875rem;
+            margin-top: 4px;
+            z-index: 9999 !important;
+            position: absolute !important;
+        }
+
+        .search-form .ts-wrapper .ts-dropdown .option {
+            padding: 10px 16px;
+            color: var(--text-primary);
+            transition: background .1s;
+        }
+
+        .search-form .ts-wrapper .ts-dropdown .option:hover,
+        .search-form .ts-wrapper .ts-dropdown .option.active {
+            background: var(--blue-light);
+            color: var(--blue-primary);
+        }
+
+        .search-form .ts-wrapper .ts-dropdown .option.selected {
+            background: var(--blue-mid);
+            color: #fff;
+        }
+
+        .btn-search {
+            background: var(--blue-mid);
+            color: white;
+            border: none;
+            padding: 11px 24px;
+            border-radius: var(--radius-md);
+            font-family: 'Sora', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+            white-space: nowrap;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+        }
+
+        .btn-search:hover {
+            background: var(--blue-primary);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+        }
+
+        .btn-search:active {
+            transform: scale(0.98);
+        }
+
+        /* ── User Info Card ── */
+        .user-card {
+            margin-bottom: 20px;
+        }
+
+        .user-card .card-body {
+            display: flex;
+            align-items: center;
+            gap: 0;
+        }
+
+        .user-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--blue-mid), var(--blue-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: white;
+            flex-shrink: 0;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+        }
+
+        .user-details {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            margin-left: 20px;
+            flex: 1;
+        }
+
+        .user-details h3 {
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 3px;
+        }
+
+        .user-details p {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .divider-v {
+            width: 1px;
+            height: 40px;
+            background: var(--border);
+            margin: 0 32px;
+            flex-shrink: 0;
+        }
+
+        .user-badge {
+            margin-left: auto;
+            background: var(--blue-light);
+            color: var(--blue-primary);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 5px 14px;
+            border-radius: 99px;
+            letter-spacing: 0.03em;
+        }
+
+        /* ── Table Card ── */
+        .table-card {
+            overflow: hidden; /* table card still clips its own corners */
+        }
+
+        .table-header {
+            padding: 20px 28px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .table-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .record-count {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .records-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+        }
+
+        .records-table thead tr {
+            background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-mid) 100%);
+        }
+
+        .records-table thead th {
+            color: #ffffff;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 14px 20px;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .records-table thead th:first-child {
+            padding-left: 28px;
+        }
+
+        .records-table thead th:last-child {
+            padding-right: 28px;
+            text-align: center;
+        }
+
+        .records-table tbody tr {
+            border-bottom: 1px solid #f1f5f9;
+            transition: background 0.15s;
+        }
+
+        .records-table tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        .records-table tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        .records-table tbody td {
+            padding: 15px 20px;
+            font-size: 0.875rem;
+            color: var(--text-primary);
+            vertical-align: middle;
+        }
+
+        .records-table tbody td:first-child {
+            padding-left: 28px;
+        }
+
+        .records-table tbody td:last-child {
+            padding-right: 28px;
+            text-align: center;
+        }
+
+        /* Transaction ID */
+        .txn-id {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            letter-spacing: -0.3px;
+        }
+
+        /* Parking name */
+        .parking-name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Date */
+        .date-cell {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        /* Time */
+        .time-cell {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+
+        .time-arrow {
+            color: var(--text-muted);
+            font-size: 0.7rem;
+        }
+
+        /* Price */
+        .price-cell {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+        }
+
+        /* Status badge */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 14px;
+            border-radius: 99px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+        }
+
+        .status-badge.paid {
+            background: var(--green-light);
+            color: var(--green);
+        }
+
+        .status-badge.unpaid {
+            background: #fef9c3;
+            color: #854d0e;
+        }
+
+        .status-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+            display: block;
+        }
+
+        /* ── Empty State ── */
+        .empty-state {
+            text-align: center;
+            padding: 64px 32px;
+        }
+
+        .empty-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            opacity: 0.35;
+        }
+
+        .empty-state h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+
+        .empty-state p {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 900px) {
+            .records-container {
+                padding: 16px;
+            }
+
+            .search-card .card-body {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .search-form {
+                max-width: 100%;
+                width: 100%;
+            }
+
+            .user-details {
+                flex-direction: column;
+                gap: 12px;
+                align-items: flex-start;
+            }
+
+            .divider-v {
+                display: none;
+            }
+
+            .records-table thead th,
+            .records-table tbody td {
+                padding: 12px 14px;
+            }
+
+            .records-table thead th:first-child,
+            .records-table tbody td:first-child {
+                padding-left: 16px;
+            }
+
+            .records-table thead th:last-child,
+            .records-table tbody td:last-child {
+                padding-right: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+{% include 'includes/navbar.html' %}
+
+<div class="page-wrapper">
+<div class="records-container">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div>
+            <h1>User Records</h1>
+            <div class="header-sub">Search and view parking transaction history</div>
+        </div>
+    </div>
+
+    <!-- Search Card -->
+    <div class="card search-card">
+        <div class="card-body">
+            <span class="search-label">Search by</span>
+            <form method="GET" class="search-form">
+                <select
+                    id="userSelect"
+                    name="user_id"
+                    required
+                >
+                    <option value="">Select User</option>
+                    {% for user in users %}
+                    <option
+                        value="{{ user.unique_id }}"
+                        {% if request.GET.user_id == user.unique_id %}selected{% endif %}
+                    >
+                        {{ user.name }} - {{ user.phone }}
+                    </option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn-search">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- User Info Card -->
+    {% if user_data %}
+    <div class="card user-card">
+        <div class="card-body">
+            <div class="user-avatar">{{ user_data.name|slice:":2" }}</div>
+            <div class="user-details">
+                <div>
+                    <h3>Name</h3>
+                    <p>{{ user_data.name }}</p>
+                </div>
+                <div class="divider-v"></div>
+                <div>
+                    <h3>Phone</h3>
+                    <p>{{ user_data.phone }}</p>
+                </div>
+            </div>
+            <span class="user-badge">Active User</span>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Records Table -->
+    <div class="card table-card">
+        {% if payments %}
+        <div class="table-header">
+            <span class="table-title">Transaction History</span>
+            <span class="record-count">{{ payments|length }} record{{ payments|length|pluralize }}</span>
+        </div>
+        <table class="records-table">
+            <thead>
+                <tr>
+                    <th>Transaction ID</th>
+                    <th>Parking Name</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for payment in payments %}
+                <tr>
+                    <td>
+                        <span class="txn-id">{{ payment.payment_id }}</span>
+                    </td>
+                    <td>
+                        <span class="parking-name">{{ payment.parking_name }}</span>
+                    </td>
+                    <td>
+                        <span class="date-cell">{{ payment.booking_date }}</span>
+                    </td>
+                    <td>
+                        <span class="time-cell">
+                            {{ payment.entry_time }}
+                            <span class="time-arrow">→</span>
+                            {{ payment.exit_time }}
+                        </span>
+                    </td>
+                    <td>
+                        <span class="price-cell">₹ {{ payment.amount }}</span>
+                    </td>
+                    <td>
+                        <span class="status-badge {% if payment.payment_status == 'Paid' or payment.payment_status == 'paid' %}paid{% else %}unpaid{% endif %}">
+                            {{ payment.payment_status }}
+                        </span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="empty-state">
+            <div class="empty-icon">🅿️</div>
+            <h3>No records found</h3>
+            <p>Search by User ID to view transaction history</p>
+        </div>
+        {% endif %}
+    </div>
+
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
+<script>
+new TomSelect("#userSelect", {
+    create: false,
+    sortField: { field: "text", direction: "asc" }
+});
+</script>
+
+</body>
+</html>

@@ -114,26 +114,15 @@ final TextEditingController passwordController =
                  onPressed: () async {
 
                    final response = await http.post(
-
-                     Uri.parse(
-                       "http://127.0.0.1:8000/mobile-login/"
-                      ),
-
-                     headers: {
-
-                        "Content-Type": "application/json"
-
-                      },
-
-                     body: jsonEncode({
-
-                        "email": emailController.text,
-
-                        "password": passwordController.text
-
-                      }),
-
-                    );
+                   Uri.parse("http://10.0.2.2:8000/mobile-login/"),
+                   headers: {
+                    "Content-Type": "application/json"
+                    },
+                    body: jsonEncode({
+                      "email": emailController.text,
+                      "password": passwordController.text
+                    }),
+                  );
 
                    final data = jsonDecode(response.body);
 
@@ -357,32 +346,21 @@ class _RegisterPageState extends State<RegisterPage> {
   onPressed: () async {
 
     final response = await http.post(
+  Uri.parse("http://10.0.2.2:8000/mobile-login/"),
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: jsonEncode({
+    "email": emailController.text,
+    "password": passwordController.text
+  }),
+);
 
-      Uri.parse(
-        "http://127.0.0.1:8000/mobile-register/",
-      ),
+print("STATUS CODE: ${response.statusCode}");
+print("RESPONSE BODY:");
+print(response.body);
 
-      headers: {
-        "Content-Type": "application/json",
-      },
-
-      body: jsonEncode({
-
-        "name": nameController.text,
-
-        "phone": phoneController.text,
-
-        "email": emailController.text,
-
-        "password": passwordController.text,
-
-        "vehicle": vehicleController.text,
-
-      }),
-
-    );
-
-    final data = jsonDecode(response.body);
+final data = jsonDecode(response.body);
 
     if (data["success"] == true) {
 

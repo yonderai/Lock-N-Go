@@ -333,7 +333,7 @@ def mobile_parking_list(request):
 
         if owner.get("parking_images"):
 
-            image = "http://127.0.0.1:8000/media/" + owner["parking_images"][0]
+            image = "http://10.0.2.2:8000/media/" + owner["parking_images"][0]
 
         parking_data.append({
 
