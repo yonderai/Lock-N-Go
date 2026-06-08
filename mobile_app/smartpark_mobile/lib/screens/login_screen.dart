@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../services/api_service.dart';
 import 'dashboard_screen.dart';
 import 'register_screen.dart';
+import 'owner_register_screen.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -11,11 +12,11 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final emailController    = TextEditingController();
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  bool _loading       = false;
-  bool _obscurePass   = true;
+  bool _loading = false;
+  bool _obscurePass = true;
 
   @override
   void dispose() {
@@ -25,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> _login() async {
-    final email    = emailController.text.trim();
+    final email = emailController.text.trim();
     final password = passwordController.text.trim();
 
     if (email.isEmpty || password.isEmpty) {
@@ -45,12 +46,12 @@ class _LoginPageState extends State<LoginPage> {
         context,
         MaterialPageRoute(
           builder: (_) => DashboardPage(
-            name:         data["name"]         ?? "",
-            email:        data["email"]        ?? "",
-            phone:        data["phone"]        ?? "",
-            vehicle:      data["vehicle"]      ?? "",
-            accountType:  data["account_type"] ?? "User",
-            parkingName:  data["parking_name"] ?? "",
+            name: data["name"] ?? "",
+            email: data["email"] ?? "",
+            phone: data["phone"] ?? "",
+            vehicle: data["vehicle"] ?? "",
+            accountType: data["account_type"] ?? "User",
+            parkingName: data["parking_name"] ?? "",
             uniqueId: data["unique_id"] ?? "",
           ),
         ),
@@ -80,7 +81,6 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-
               // ── Hero banner ──
               Container(
                 width: double.infinity,
@@ -159,7 +159,8 @@ class _LoginPageState extends State<LoginPage> {
                     icon: Icon(
                       _obscurePass ? Icons.visibility_off : Icons.visibility,
                     ),
-                    onPressed: () => setState(() => _obscurePass = !_obscurePass),
+                    onPressed: () =>
+                        setState(() => _obscurePass = !_obscurePass),
                   ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -195,7 +196,10 @@ class _LoginPageState extends State<LoginPage> {
                         )
                       : const Text(
                           "Login",
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                 ),
               ),
@@ -208,7 +212,10 @@ class _LoginPageState extends State<LoginPage> {
                   Expanded(child: Divider(color: Colors.grey.shade300)),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: Text("OR", style: TextStyle(color: Colors.grey.shade500)),
+                    child: Text(
+                      "OR",
+                      style: TextStyle(color: Colors.grey.shade500),
+                    ),
                   ),
                   Expanded(child: Divider(color: Colors.grey.shade300)),
                 ],
@@ -258,7 +265,27 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ],
               ),
+              const SizedBox(height: 10),
 
+              SizedBox(
+                width: double.infinity,
+                height: 52,
+                child: OutlinedButton.icon(
+                  icon: const Icon(Icons.local_parking),
+                  label: const Text(
+                    "Owner Registration",
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const OwnerRegisterScreen(),
+                      ),
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),
