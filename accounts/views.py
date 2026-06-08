@@ -4,7 +4,7 @@ import json
 
 from django.core.files.storage import FileSystemStorage
 
-from core.mongodb import users_collection, owners_collection
+from core.mongodb import users_collection, owners_collection, payments_collection
 
 from datetime import datetime
 
@@ -230,9 +230,23 @@ def mobile_login(request):
 
             return JsonResponse({
 
-                "success": True,
-                "type": "owner",
-                "name": owner["name"]
+            "success": True,
+
+            "type": "owner",
+
+            "name": owner.get("name", ""),
+
+            "email": owner.get("email", ""),
+
+            "phone": owner.get("phone", ""),
+
+            "vehicle": "",
+
+            "account_type": owner.get("account_type", "Owner"),
+
+            "parking_name": owner.get("parking_name", ""),
+
+            "unique_id": owner.get("unique_id", "")
 
             })
 
@@ -241,8 +255,20 @@ def mobile_login(request):
             return JsonResponse({
 
                 "success": True,
+
                 "type": "user",
-                "name": user["name"]
+
+                "name": user.get("name", ""),
+
+                "email": user.get("email", ""),
+
+                "phone": user.get("phone", ""),
+
+                "vehicle": user.get("vehicle_number", ""),
+
+                "account_type": user.get("account_type", "User"),
+
+                "unique_id": user.get("unique_id", "")
 
             })
 
@@ -306,9 +332,19 @@ def mobile_register(request):
 
         return JsonResponse({
 
-            "success": True
+            "success": True,
 
-        })
+            "name": user_data.get("name", ""),
+
+            "email": user_data.get("email", ""),
+
+            "phone": user_data.get("phone", ""),
+
+            "vehicle": user_data.get("vehicle_number", ""),
+
+            "account_type": user_data.get("account_type", "User")
+
+            })
 
     return JsonResponse({
 
@@ -320,9 +356,7 @@ def mobile_register(request):
 def mobile_parking_list(request):
 
     owners = owners_collection.find({
-
         "status": "green"
-
     })
 
     parking_data = []
@@ -332,20 +366,120 @@ def mobile_parking_list(request):
         image = ""
 
         if owner.get("parking_images"):
-
-            image = "http://10.0.2.2:8000/media/" + owner["parking_images"][0]
+            image = "http://10.0.2.2:8000" + owner["parking_images"][0]
 
         parking_data.append({
 
             "parking_name": owner.get("parking_name"),
-
-            "price": owner.get("price_per_hour"),
-
+            "address": owner.get("address"),
+            "car_price": owner.get("price_per_hour for cars"),
+            "bike_price": owner.get("price_per_hour for bikes"),
+            "car_slots": owner.get("number_of_car_slots"),
+            "bike_slots": owner.get("number_of_bike_slots"),
             "map_link": owner.get("google_map_link"),
-
             "image": image,
+            "owner_name": owner.get("name"),
+            "unique_id": owner.get("unique_id"),
 
-            "owner_name": owner.get("name")
+        })
+
+    return JsonResponse({
+
+        "success": True,
+        "parkings": parking_data
+
+    })
+
+
+@csrf_exempt
+def mobile_create_booking(request):
+
+    if request.method == "POST":
+
+        data = json.loads(request.body)
+
+        booking_data = {
+
+            "payment_id": str(datetime.now().timestamp()),
+
+            "parking_id": data.get("parking_id"),
+            "parking_name": data.get("parking_name"),
+            "owner_name": data.get("owner_name"),
+            "user_id": data.get("user_id"),
+            "user_name": data.get("user_name"),
+            "user_phone": data.get("user_phone"),
+            "user_email": data.get("user_email"),
+
+            "vehicle_number": data.get("vehicle_number"),
+            "vehicle_type": data.get("vehicle_type"),
+
+            "amount": data.get("amount"),
+
+            "booking_date": data.get("booking_date"),
+            "entry_time": data.get("entry_time"),
+            "exit_time": data.get("exit_time"),
+
+            "payment_status": "Paid",
+
+            "created_at": datetime.utcnow()
+
+        }
+
+        payments_collection.insert_one(booking_data)
+
+        return JsonResponse({
+
+            "success": True,
+            "message": "Booking Created"
+
+        })
+
+    return JsonResponse({
+
+        "success": False
+
+    })
+@csrf_exempt
+def mobile_user_records(request):
+
+    user_id = request.GET.get("user_id")
+
+    records = list(
+        payments_collection.find(
+            {
+                "user_id": user_id
+            },
+            {
+                "_id": 0
+            }
+        ).sort(
+            "created_at",
+            -1
+        )
+    )
+
+    return JsonResponse({
+        "success": True,
+        "records": records
+    })    
+@csrf_exempt
+def mobile_users_list(request):
+
+    users = list(
+        users_collection.find()
+    )
+
+    result = []
+
+    for user in users:
+
+        result.append({
+
+            "user_id": user.get("unique_id"),
+
+            "name": user.get("name"),
+
+            "phone": user.get("phone"),
 
         })
 
@@ -353,6 +487,133 @@ def mobile_parking_list(request):
 
         "success": True,
 
-        "parkings": parking_data
+        "users": result
+
+    })    
+def owner_records(request):
+
+    owners = list(
+        owners_collection.find(
+            {},
+            {
+                "_id": 0
+            }
+        )
+    )
+
+    selected_owner = request.GET.get(
+        "owner_id"
+    )
+
+    owner_data = None
+    payments = []
+
+    if selected_owner:
+
+        owner_data = owners_collection.find_one(
+            {
+                "unique_id": selected_owner
+            },
+            {
+                "_id": 0
+            }
+        )
+
+        payments = list(
+            payments_collection.find(
+                {
+                    "parking_id": selected_owner
+                },
+                {
+                    "_id": 0
+                }
+            ).sort(
+                "created_at",
+                -1
+            )
+        )
+
+    return render(
+        request,
+        "accounts/owner_records.html",
+        {
+            "owners": owners,
+            "owner_data": owner_data,
+            "payments": payments
+        }
+    )
+@csrf_exempt
+def mobile_owners_list(request):
+
+    owners = list(
+        owners_collection.find(
+            {},
+            {
+                "_id": 0
+            }
+        )
+    )
+
+    result = []
+
+    for owner in owners:
+
+        result.append({
+
+            "owner_id":
+                owner.get(
+                    "unique_id"
+                ),
+
+            "name":
+                owner.get(
+                    "name"
+                ),
+
+            "phone":
+                owner.get(
+                    "phone"
+                ),
+
+            "parking_name":
+                owner.get(
+                    "parking_name"
+                )
+        })
+
+    return JsonResponse({
+
+        "success": True,
+
+        "owners": result
 
     })
+@csrf_exempt
+def mobile_owner_records(request):
+
+    owner_id = request.GET.get(
+        "owner_id"
+    )
+
+    records = list(
+        payments_collection.find(
+            {
+                "parking_id":
+                    owner_id
+            },
+            {
+                "_id": 0
+            }
+        ).sort(
+            "created_at",
+            -1
+        )
+    )
+
+    return JsonResponse({
+
+        "success": True,
+
+        "records": records
+
+    })        
