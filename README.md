@@ -111,9 +111,4 @@ http://127.0.0.1:8000/
 
 * Online payment gateway
 * Live parking slot availability
-* QR-based parking entry
 * Mobile application support
-
-## Developer
-
-Developed by Raj Mukherjee
