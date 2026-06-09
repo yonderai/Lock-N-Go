@@ -15,7 +15,7 @@ SECRET_KEY = 'django-insecure-t3&k*z%t8jxv83un1p%eccndy!4lns5ll275q106zl&n5jewz&
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '127.0.0.1',
+    'lock-n-go-1.onrender.com',
     'localhost',
     '10.0.2.2',
     '192.168.1.5',
