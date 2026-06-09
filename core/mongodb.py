@@ -5,7 +5,7 @@ from pymongo import MongoClient
 # ──────────────────────────────────────────────────────
 
 client = MongoClient(
-    "mongodb://localhost:27017/"
+    "mongodb+srv://rajmukherjee1601:cCoU5I52JX8U8BfZ@cluster0.noyxs.mongodb.net/?appName=Cluster0"
 )
 
 db = client["smartpark_db"]
