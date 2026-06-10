@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartPark Login</title>
+    <title>Lock-N-Go · Login</title>
 
     {% load static %}
 
+    <link rel="stylesheet" href="{% static 'css/lockngo.css' %}">
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
@@ -22,11 +23,25 @@
 
             <div class="overlay">
 
-                <h1>SmartPark</h1>
+                <div class="brand-mark">
+                    <span class="lock-badge"></span>
+                    <span class="brand-word">Lock<span>-N-Go</span></span>
+                </div>
+
+                <h1>Park smart.<br><span class="hl">Lock it &amp; Go.</span></h1>
 
                 <p>
-                    Smart Parking Management System for modern cities.
+                    Find, compare and book secure parking in seconds —
+                    then walk away knowing your spot is locked in.
                 </p>
+
+                <span class="tagline-pill">Lock it. Leave it. Lock-N-Go.</span>
+
+                <div class="left-features">
+                    <div class="feat"><i class="fa-solid fa-magnifying-glass"></i> Discover parking near you</div>
+                    <div class="feat"><i class="fa-solid fa-bolt"></i> Book &amp; pay in seconds</div>
+                    <div class="feat"><i class="fa-solid fa-shield-halved"></i> Secure, verified spaces</div>
+                </div>
 
             </div>
 
@@ -38,66 +53,59 @@
 
             <div class="login-box">
 
-                <h2>Welcome Back 👋</h2>
+                <h2>Welcome back 👋</h2>
 
-                <p class="subtitle">
-                    Login to continue
-                </p>
+                <p class="subtitle">Login to continue to Lock-N-Go</p>
 
                 {% if error %}
 
-<p class="error-message">
-    {{ error }}
-</p>
+                <p class="error-message">
+                    {{ error }}
+                </p>
 
-{% endif %}
+                {% endif %}
 
-<form method="POST">
+                <form method="POST">
 
-    {% csrf_token %}
+                    {% csrf_token %}
 
-    <div class="input-box">
+                    <div class="input-box">
 
-        <i class="fa-solid fa-user"></i>
+                        <i class="fa-solid fa-user"></i>
 
-        <input
-            type="text"
-            name="login_input"
-            placeholder="Email or Phone Number"
-            required
-        >
+                        <input
+                            type="text"
+                            name="login_input"
+                            placeholder="Email or Phone Number"
+                            required
+                        >
 
-    </div>
+                    </div>
 
-    <div class="input-box">
+                    <div class="input-box">
 
-        <i class="fa-solid fa-lock"></i>
+                        <i class="fa-solid fa-lock"></i>
 
-        <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            required
-        >
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            required
+                        >
 
-    </div>
+                    </div>
 
-    <button type="submit" class="login-btn">
-        Login
-    </button>
+                    <button type="submit" class="login-btn">
+                        Login
+                    </button>
 
-</form>
+                </form>
 
-                <div class="divider">
-                    OR
-                </div>
+                <div class="divider">OR</div>
 
                 <button class="google-btn">
-
                     <i class="fa-brands fa-google"></i>
-
                     Continue with Google
-
                 </button>
 
                 <div class="register-links">
@@ -106,13 +114,9 @@
 
                     <div class="links">
 
-                        <a href="/user-register/">
-                            User Registration
-                        </a>
+                        <a href="/user-register/">User Registration</a>
 
-                        <a href="/owner-register/">
-                            Owner Registration
-                        </a>
+                        <a href="/owner-register/">Owner Registration</a>
 
                     </div>
 

@@ -1,255 +1,93 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,sans-serif;
-}
-
-body{
-
-    background:#f1f5f9;
-
-    min-height:100vh;
-}
-
-/* WRAPPER */
+/* ============================================================
+   LOCK-N-GO — Payment  (palette unchanged; navbar in lockngo.css)
+   ============================================================ */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);min-height:100vh;font-family:'Plus Jakarta Sans',Arial,sans-serif;}
 
 .payment-wrapper{
-
-    width:100%;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:flex-start;
-
-    padding-top:120px;
-
-    padding-bottom:40px;
-
-    padding-left:20px;
-
-    padding-right:20px;
+    width:100%;display:flex;justify-content:center;align-items:flex-start;
+    padding:48px 20px 60px;
 }
 
-/* CARD */
-
 .payment-card{
-
-    width:100%;
-
-    max-width:750px;
-
-    background:white;
-
-    border-radius:25px;
-
-    box-shadow:
-    0 10px 35px
-    rgba(0,0,0,0.08);
-
-    overflow:hidden;
+    width:100%;max-width:820px;background:var(--surface);
+    border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;
+    box-shadow:var(--sh-lg);animation:lng-pop .6s var(--ease) both;
 }
 
 /* HEADER */
-
 .payment-header{
-
-    background:
-    linear-gradient(
-        135deg,
-        #2563eb,
-        #1d4ed8
-    );
-
-    color:white;
-
-    text-align:center;
-
-    padding:35px;
+    position:relative;overflow:hidden;text-align:center;padding:40px 35px;color:#fff;
+    background:linear-gradient(120deg,#2563eb 0%,#1d4ed8 60%,#1e3a8a 100%);
+    background-size:180% 180%;animation:lng-flow 12s ease infinite;
 }
-
-.payment-header i{
-
-    font-size:42px;
-
-    margin-bottom:12px;
+.payment-header::after{
+    content:"";position:absolute;width:280px;height:280px;top:-150px;right:-40px;border-radius:50%;
+    background:radial-gradient(circle,rgba(26,188,156,.45),transparent 65%);filter:blur(8px);
 }
-
-.payment-header h2{
-
-    font-size:28px;
-
-    margin-bottom:8px;
-}
-
-.payment-header p{
-
-    font-size:15px;
-
-    opacity:.9;
-}
+.payment-header i{font-size:40px;margin-bottom:12px;position:relative;}
+.payment-header h2{font-family:'Sora',sans-serif;font-weight:800;font-size:1.8rem;margin-bottom:6px;position:relative;color:#fff;}
+.payment-header p{font-size:.96rem;opacity:.92;position:relative;}
 
 /* FORM */
+.payment-form{padding:32px 34px;display:flex;flex-direction:column;gap:22px;}
 
-.payment-form{
-
-    padding:35px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:25px;
-}
-
-/* SECTION */
-
+/* SECTION (reflowed to 2-column) */
 .section-box{
-
-    border:1px solid #e2e8f0;
-
-    border-radius:18px;
-
-    padding:22px;
-
-    background:#f8fafc;
+    border:1px solid var(--border);border-radius:18px;padding:24px;background:var(--soft);
+    display:grid;grid-template-columns:repeat(2,1fr);gap:16px 18px;
+    animation:lng-rise .6s var(--ease) both;
 }
-
 .section-box h3{
-
-    color:#0f172a;
-
-    margin-bottom:20px;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
+    grid-column:1/-1;font-family:'Sora',sans-serif;color:var(--heading);font-size:1.05rem;font-weight:700;
+    display:flex;align-items:center;gap:10px;margin-bottom:4px;
+}
+.section-box h3 i{
+    width:34px;height:34px;border-radius:10px;display:grid;place-items:center;
+    background:rgba(37,99,235,.1);color:var(--brand);font-size:.95rem;
 }
 
 /* FIELD */
-
-.field{
-
-    display:flex;
-
-    flex-direction:column;
-
-    margin-bottom:16px;
+.field{display:flex;flex-direction:column;margin-bottom:0;}
+.field:has(textarea){grid-column:1/-1;}
+.field label{margin-bottom:7px;color:var(--muted);font-size:.82rem;font-weight:600;letter-spacing:.02em;}
+.field input,.field select,.field textarea{
+    width:100%;padding:13px 15px;border:1.6px solid var(--border);border-radius:12px;background:#fff;
+    outline:none;font-size:.96rem;font-family:'Plus Jakarta Sans',sans-serif;color:var(--heading);
+    transition:border-color .2s, box-shadow .2s;
 }
-
-.field label{
-
-    margin-bottom:8px;
-
-    color:#475569;
-
-    font-size:14px;
-
-    font-weight:600;
+.field input:focus,.field select:focus,.field textarea:focus{
+    border-color:var(--brand);box-shadow:0 0 0 4px rgba(37,99,235,.12);
 }
-
-.field input,
-.field select,
-.field textarea{
-
-    width:100%;
-
-    padding:14px;
-
-    border:1px solid #cbd5e1;
-
-    border-radius:12px;
-
-    background:white;
-
-    outline:none;
-
-    font-size:15px;
-}
-
-.field textarea{
-
-    resize:none;
-
-    height:80px;
-}
-
-.field input[readonly],
-.field textarea[readonly]{
-
-    background:#eef2f7;
-
-    color:#334155;
-}
+.field textarea{resize:none;height:80px;}
+.field input[readonly],.field textarea[readonly]{background:#eef2f7;color:#334155;border-color:var(--border);}
 
 /* PRICE */
-
 .price-card{
-
-    background:
-    linear-gradient(
-        135deg,
-        #22c55e,
-        #16a34a
-    );
-
-    color:white;
-
-    text-align:center;
-
-    padding:22px;
-
-    border-radius:18px;
-
-    font-size:24px;
-
-    font-weight:700;
+    position:relative;overflow:hidden;text-align:center;padding:24px;border-radius:18px;
+    font-family:'Sora',sans-serif;font-size:1.5rem;font-weight:800;color:#fff;letter-spacing:-.5px;
+    background:linear-gradient(120deg,#22c55e,#16a34a);box-shadow:0 16px 30px rgba(34,197,94,.3);
+    animation:lng-pop .5s var(--ease) both;
+}
+.price-card::before{
+    content:"";position:absolute;width:220px;height:220px;top:-120px;left:-30px;border-radius:50%;
+    background:radial-gradient(circle,rgba(255,255,255,.25),transparent 65%);
 }
 
 /* BUTTON */
-
 .pay-btn{
-
-    border:none;
-
-    padding:16px;
-
-    background:#0f172a;
-
-    color:white;
-
-    border-radius:14px;
-
-    font-size:16px;
-
-    font-weight:600;
-
-    cursor:pointer;
-
-    transition:.3s;
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    border:none;padding:17px;border-radius:14px;cursor:pointer;
+    background:var(--navy-grad);color:#fff;font-family:'Plus Jakarta Sans',sans-serif;
+    font-size:1.02rem;font-weight:700;box-shadow:0 14px 28px rgba(15,23,42,.28);
+    transition:transform .2s, box-shadow .2s, filter .2s;
 }
-
-.pay-btn:hover{
-
-    background:#1e293b;
-}
-
-/* MOBILE */
+.pay-btn:hover{transform:translateY(-2px);box-shadow:0 20px 36px rgba(15,23,42,.36);filter:saturate(1.1);}
+.pay-btn:active{transform:translateY(0);}
 
 @media(max-width:768px){
-
-    .payment-form{
-
-        padding:22px;
-    }
-
-    .payment-header{
-
-        padding:28px;
-    }
-
+    .payment-form{padding:22px;}
+    .payment-header{padding:30px 24px;}
+    .section-box{grid-template-columns:1fr;padding:20px;}
+    .payment-wrapper{padding-top:32px;}
 }

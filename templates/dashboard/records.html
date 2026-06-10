@@ -6,10 +6,11 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Owner Records</title>
+    <title>Lock-N-Go · Owner Records</title>
 
     {% load static %}
 
+    <link rel="stylesheet" href="{% static 'css/lockngo.css' %}">
     <link rel="stylesheet" href="{% static 'css/records.css' %}">
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
@@ -29,6 +30,7 @@
 
         <table>
 
+            <thead>
             <tr>
 
                 <th>Name</th>
@@ -52,6 +54,9 @@
                 <th>Status</th>
 
             </tr>
+            </thead>
+
+            <tbody>
 
             {% for owner in owners %}
 
@@ -73,7 +78,7 @@
 
     {% for image in owner.parking_images %}
 
-        <img src="{{ image }}" width="60" height="60">
+        <img src="{{ image }}">
 
     {% endfor %}
 
@@ -83,7 +88,7 @@
 
     {% for govt in owner.govt_ids %}
 
-        <img src="{{ govt }}" width="60" height="60">
+        <img src="{{ govt }}">
 
     {% endfor %}
 
@@ -95,7 +100,7 @@
 
     {% for doc in owner.parking_documents %}
 
-        <img src="{{ doc }}" width="60" height="60">
+        <img src="{{ doc }}">
 
     {% endfor %}
 
@@ -107,51 +112,14 @@
 
 {% if owner.status %}
 
-<a href="/change-status/{{ owner.id }}/">
-
-<button
-style="
-padding:6px 14px;
-border:none;
-border-radius:6px;
-color:white;
-font-weight:bold;
-cursor:pointer;
-
-{% if owner.status == 'red' %}
-background:red;
-{% elif owner.status == 'yellow' %}
-background:orange;
-{% else %}
-background:green;
-{% endif %}
-">
-
-{{ owner.status }}
-
-</button>
-
+<a href="/change-status/{{ owner.id }}/" class="status-pill {{ owner.status }}">
+    {{ owner.status }}
 </a>
 
 {% else %}
 
-<a href="/change-status/{{ owner.id }}/">
-
-<button
-style="
-padding:6px 14px;
-border:none;
-border-radius:6px;
-background:red;
-color:white;
-font-weight:bold;
-cursor:pointer;
-">
-
-red
-
-</button>
-
+<a href="/change-status/{{ owner.id }}/" class="status-pill red">
+    red
 </a>
 
 {% endif %}
@@ -161,6 +129,8 @@ red
             </tr>
 
             {% endfor %}
+
+            </tbody>
 
         </table>
 

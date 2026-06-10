@@ -3,100 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Registration</title>
+    <title>Lock-N-Go · User Registration</title>
 
-    <style>
+    {% load static %}
 
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family:Arial, Helvetica, sans-serif;
-        }
-
-        body{
-            height:100vh;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            background:linear-gradient(135deg,#0f172a,#1e293b);
-            padding:20px;
-        }
-
-        .container{
-            width:420px;
-            background:white;
-            padding:40px;
-            border-radius:20px;
-            box-shadow:0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        .title{
-            text-align:center;
-            margin-bottom:30px;
-        }
-
-        .title h1{
-            color:#0f172a;
-            margin-bottom:10px;
-        }
-
-        .input-box{
-            margin-bottom:18px;
-        }
-
-        .input-box input{
-            width:100%;
-            padding:14px;
-            border:1px solid #ccc;
-            border-radius:10px;
-            font-size:15px;
-            outline:none;
-            transition:0.3s;
-        }
-
-        .input-box input:focus{
-            border-color:#2563eb;
-        }
-
-        .btn{
-            width:100%;
-            padding:14px;
-            border:none;
-            background:#2563eb;
-            color:white;
-            font-size:16px;
-            border-radius:10px;
-            cursor:pointer;
-            transition:0.3s;
-            margin-top:10px;
-        }
-
-        .btn:hover{
-            background:#1d4ed8;
-        }
-
-        .bottom-text{
-            text-align:center;
-            margin-top:20px;
-        }
-
-        .bottom-text a{
-            text-decoration:none;
-            color:#2563eb;
-            font-weight:bold;
-        }
-
-    </style>
+    <link rel="stylesheet" href="{% static 'css/lockngo.css' %}">
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
 
 </head>
 <body>
 
     <div class="container">
 
+        <div class="reg-brand">
+            <span class="badge"></span>
+            <b>Lock<span>-N-Go</span></b>
+        </div>
+
         <div class="title">
-            <h1>Create User Account</h1>
-            <p>Register to continue</p>
+            <h1>Create your account</h1>
+            <p>Join Lock-N-Go and book parking in seconds</p>
         </div>
 
         <form method="POST">

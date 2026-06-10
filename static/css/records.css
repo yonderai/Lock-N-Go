@@ -1,133 +1,66 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial;
-}
+/* ============================================================
+   LOCK-N-GO — Owner Records (admin table)  (palette unchanged)
+   ============================================================ */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);margin:0;overflow-x:auto;font-family:'Plus Jakarta Sans',Arial,sans-serif;}
 
-/* BODY */
-
-body{
-    background:#f1f5f9;
-
-    margin:0;
-
-    overflow-x:auto;
-}
-
-/* RECORD SECTION */
-
-.records-section{
-    padding-top:120px;
-
-    padding-left:40px;
-
-    padding-right:40px;
-
-    padding-bottom:40px;
-
-    width:100%;
-}
-
-/* CONTAINER */
+.records-section{padding:36px 40px 50px;width:100%;}
 
 .container{
-    width:100%;
-
-    background:white;
-
-    padding:30px;
-
-    border-radius:25px;
-
-    box-shadow:0 10px 30px rgba(0,0,0,0.05);
-
-    overflow-x:auto;
-
-    box-sizing:border-box;
+    width:100%;background:var(--surface);border:1px solid var(--border);
+    padding:30px;border-radius:var(--r-xl);box-shadow:var(--sh-md);
+    overflow-x:auto;animation:lng-rise .6s var(--ease) both;
 }
-/* PAGE TITLE */
 
 h1{
-    color:#0f172a;
-    margin-bottom:30px;
-    font-size:42px;
+    font-family:'Sora',sans-serif;color:var(--heading);margin-bottom:6px;
+    font-size:2rem;font-weight:800;letter-spacing:-.5px;
+}
+.container>h1{position:relative;padding-bottom:18px;}
+.container>h1::after{
+    content:"Manage owner approvals · tap a status to advance it";
+    display:block;font-family:'Plus Jakarta Sans',sans-serif;font-size:.85rem;font-weight:500;
+    color:var(--muted);margin-top:8px;letter-spacing:0;
 }
 
 /* TABLE */
-
-table{
-    width:100%;
-    border-collapse:collapse;
-    min-width:1400px;
+table{width:100%;border-collapse:separate;border-spacing:0;min-width:1400px;border-radius:16px;overflow:hidden;}
+table thead th{
+    background:var(--brand-grad);color:#fff;padding:16px 18px;text-align:center;
+    font-family:'Sora',sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+    white-space:nowrap;
 }
-
-/* TABLE HEAD */
-
-table th{
-    background:#2563eb;
-    color:white;
-    padding:18px;
-    text-align:center;
-    font-size:16px;
-}
-
-/* TABLE BODY */
-
 table td{
-    border:1px solid #e2e8f0;
-    padding:20px;
-    text-align:center;
-    vertical-align:middle;
+    border-bottom:1px solid var(--border);padding:18px;text-align:center;vertical-align:middle;
+    font-size:.9rem;color:var(--text);
 }
-
-/* IMAGES */
+table tbody tr{transition:background .15s;}
+table tbody tr:hover{background:var(--soft);}
+table tbody tr:last-child td{border-bottom:none;}
 
 table img{
-    width:120px;
-    border-radius:12px;
-    margin:5px;
+    width:84px;height:84px;object-fit:cover;border-radius:12px;margin:4px;
+    border:1px solid var(--border);box-shadow:var(--sh-sm);transition:transform .2s;
 }
+table img:hover{transform:scale(1.08);}
+table a{text-decoration:none;}
 
-/* DOCUMENT LINK */
-
-table a{
-    text-decoration:none;
+/* STATUS PILLS (traffic-light) */
+.status-btn,.status-pill{
+    display:inline-flex;align-items:center;gap:8px;
+    color:#fff;padding:9px 18px;border-radius:99px;text-decoration:none;
+    font-weight:700;font-size:.85rem;letter-spacing:.03em;text-transform:capitalize;
+    box-shadow:var(--sh-sm);transition:transform .2s, box-shadow .2s, filter .2s;
 }
+.status-pill::before{content:"";width:8px;height:8px;border-radius:50%;background:#fff;opacity:.9;}
+.status-pill:hover{transform:translateY(-2px);filter:saturate(1.15);box-shadow:var(--sh-md);}
 
-/* STATUS BUTTON */
-
-.status-btn{
-    color:white;
-    padding:12px 20px;
-    border-radius:12px;
-    text-decoration:none;
-    font-weight:bold;
-    display:inline-block;
-}
-
-/* COLORS */
-
-.red{
-    background:red;
-}
-
-.yellow{
-    background:gold;
-    color:black;
-}
-
-.green{
-    background:green;
-}
-
-/* RESPONSIVE */
+.red{background:#ef4444;}
+.yellow{background:gold;color:#1f2937;}
+.yellow::before{background:#1f2937;}
+.green{background:#16a34a;}
 
 @media(max-width:1200px){
-
-    .container{
-        margin-left:20px;
-        margin-right:20px;
-    }
-
+    .records-section{padding:24px 16px 40px;}
+    .container{padding:20px;}
 }

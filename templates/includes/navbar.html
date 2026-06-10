@@ -1,46 +1,36 @@
 <nav class="navbar">
 
     <div class="logo">
-        SmartPark
+        Lock<span>-N-Go</span>
     </div>
 
     <ul class="nav-links">
 
-    <li>
-        <a href="/dashboard/">Home</a>
-    </li>
-
-
-
-
-    <!-- OWNER ONLY -->
-
-    <li>
-        <a href="/user-records/">
-            My Bookings
-        </a>
-    </li>
-
-
-    <!-- ADMIN ONLY -->
-
-    <li>
-        <a href="/admin-register/">
-            Admin Register
-        </a>
-    </li>
-
-    <li>
-        <a href="/owner-booking-records/">
-            Parking Bookings
-        </a>
-    </li>
         <li>
-        <a href="/records/">Records</a>
-    </li>
+            <a href="/dashboard/">Home</a>
+        </li>
 
+        <!-- OWNER ONLY -->
 
-</ul>
+        <li>
+            <a href="/user-records/">My Bookings</a>
+        </li>
+
+        <!-- ADMIN ONLY -->
+
+        <li>
+            <a href="/admin-register/">Admin Register</a>
+        </li>
+
+        <li>
+            <a href="/owner-booking-records/">Parking Bookings</a>
+        </li>
+
+        <li>
+            <a href="/records/">Records</a>
+        </li>
+
+    </ul>
 
     <!-- USER DROPDOWN -->
 
@@ -50,11 +40,7 @@
             class="user-btn"
             id="userDropdownBtn"
         >
-
             {{ name }}
-
-            ▼
-
         </button>
 
         <div
@@ -78,42 +64,34 @@
             <div class="dropdown-info">
 
                 <p>
-                    <strong>Name:</strong>
+                    <strong>Name</strong>
                     {{ name }}
                 </p>
 
                 <p>
-                    <strong>Phone:</strong>
+                    <strong>Phone</strong>
                     {{ phone }}
                 </p>
 
                 <p>
-                    <strong>Email:</strong>
+                    <strong>Email</strong>
                     {{ email }}
                 </p>
 
                 <p>
-
                     <strong>
                         {% if account_type == 'User' %}
-                            Vehicle:
+                            Vehicle
                         {% else %}
-                            Parking:
+                            Parking
                         {% endif %}
                     </strong>
-
                     {{ extra }}
-
                 </p>
 
                 <p>
-
-                    <strong>
-                        Account Type:
-                    </strong>
-
+                    <strong>Account Type</strong>
                     {{ account_type }}
-
                 </p>
 
             </div>

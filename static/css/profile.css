@@ -1,61 +1,36 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
-}
-
+/* ============================================================
+   LOCK-N-GO — Profile  (palette unchanged)
+   ============================================================ */
+*{margin:0;padding:0;box-sizing:border-box;}
 body{
-    background:#f1f5f9;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
+    background:var(--bg);min-height:100vh;font-family:'Plus Jakarta Sans',Arial,sans-serif;
+    display:flex;justify-content:center;align-items:center;padding:40px 20px;
 }
 
-.profile-container{
-    width:100%;
-    display:flex;
-    justify-content:center;
-}
+.profile-container{width:100%;display:flex;justify-content:center;}
 
 .profile-card{
-    width:500px;
-    background:white;
-    padding:40px;
-    border-radius:25px;
-    text-align:center;
-    box-shadow:0 10px 30px rgba(0,0,0,0.1);
+    width:100%;max-width:520px;background:var(--surface);border:1px solid var(--border);
+    padding:0 40px 40px;border-radius:var(--r-xl);text-align:center;box-shadow:var(--sh-lg);
+    overflow:hidden;animation:lng-pop .6s var(--ease) both;
 }
-
+.profile-card::before{
+    content:"";display:block;height:120px;margin:0 -40px 0;background:var(--navy-grad);
+}
 .avatar{
-    width:140px;
-    height:140px;
-    border-radius:50%;
-    margin-bottom:20px;
+    width:130px;height:130px;border-radius:50%;margin:-65px auto 18px;display:block;
+    border:5px solid var(--surface);box-shadow:var(--sh-md);background:#fff;object-fit:cover;
 }
+.profile-card h2{font-family:'Sora',sans-serif;color:var(--heading);font-weight:800;margin-bottom:6px;font-size:1.5rem;}
+.profile-card p{color:var(--muted);}
 
-.profile-card h2{
-    color:#0f172a;
-    margin-bottom:10px;
-}
-
-.profile-card p{
-    color:#64748b;
-}
-
-.info{
-    margin-top:35px;
-}
-
+.info{margin-top:30px;text-align:left;}
 .info-box{
-    background:#f8fafc;
-    padding:20px;
-    border-radius:15px;
-    margin-bottom:15px;
+    background:var(--soft);border:1px solid var(--border);padding:18px 20px;border-radius:14px;margin-bottom:13px;
+    transition:transform .2s, box-shadow .2s;
 }
-
+.info-box:hover{transform:translateY(-2px);box-shadow:var(--sh-sm);}
 .info-box h4{
-    color:#2563eb;
-    margin-bottom:8px;
+    color:var(--brand);margin-bottom:6px;font-family:'Sora',sans-serif;font-size:.8rem;
+    text-transform:uppercase;letter-spacing:.06em;
 }
