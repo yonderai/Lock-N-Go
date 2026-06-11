@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lock-N-Go · Smart Parking, Locked In</title>
+    <meta name="description" content="Lock-N-Go — find, compare and book secure parking for cars and bikes in seconds. Lock it. Leave it. Lock-N-Go.">
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/lockngo.css' %}">
+    <link rel="stylesheet" href="{% static 'css/landing.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+</head>
+<body class="lp">
+
+<!-- ░░░░░░░░ NAV ░░░░░░░░ -->
+<nav class="lp-nav" id="lpNav">
+    <a class="lp-brand" href="/">
+        <svg class="lng-logo" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs><linearGradient id="lngG" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#2563eb"/><stop offset="1" stop-color="#1e3a8a"/>
+            </linearGradient></defs>
+            <path class="shackle" d="M21 30 V21 a11 11 0 0 1 22 0 V30" fill="none" stroke="url(#lngG)" stroke-width="6" stroke-linecap="round"/>
+            <rect x="15" y="29" width="34" height="29" rx="9" fill="url(#lngG)"/>
+            <circle cx="32" cy="41" r="5" fill="#fff"/>
+            <path d="M32 45 v6" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+        Lock<span>-N-Go</span>
+    </a>
+    <div class="links">
+        <a href="#how">How it works</a>
+        <a href="#features">Features</a>
+        <a href="#roles">For you</a>
+    </div>
+    <div class="nav-cta">
+        <a class="btn-ghost" href="/login/">Log in</a>
+        <a class="btn-solid" href="/user-register/">Get started <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+</nav>
+
+<!-- ░░░░░░░░ HERO ░░░░░░░░ -->
+<section class="lp-hero">
+    <div class="wrap">
+
+        <div class="hero-copy">
+            <span class="hero-pill">Lock it. Leave it. Lock-N-Go.</span>
+            <h1>Find parking.<br><span class="grad">Lock it &amp; go.</span></h1>
+            <p class="lede">
+                Discover secure parking near you, compare spots side by side, and lock in a
+                booking in seconds — for cars and bikes alike.
+            </p>
+            <div class="hero-actions">
+                <a class="cta-primary" href="/user-register/"><i class="fa-solid fa-magnifying-glass"></i> Find Parking</a>
+                <a class="cta-secondary" href="/owner-register/"><i class="fa-solid fa-square-parking"></i> List your space</a>
+            </div>
+            <div class="hero-stats">
+                <div class="st"><div class="n" data-count="500" data-suffix="+"><span>0</span></div><div class="l">Parking spaces</div></div>
+                <div class="st"><div class="n" data-count="12" data-suffix="K+"><span>0</span></div><div class="l">Bookings made</div></div>
+                <div class="st"><div class="n" data-count="4.9"><span>0</span></div><div class="l">Avg rating</div></div>
+                <div class="st"><div class="n" data-count="30" data-suffix="s"><span>0</span></div><div class="l">Avg to book</div></div>
+            </div>
+        </div>
+
+        <!-- 3D STAGE -->
+        <div class="hero-stage" id="stage">
+            <div class="glow"></div>
+            <div class="stage-3d" id="stage3d">
+
+                <div class="chip-float chip-lock">
+                    <div class="ic"><i class="fa-solid fa-lock"></i></div>
+                    <div><div class="t">Secured</div><div class="b">Spot held</div></div>
+                </div>
+
+                <div class="park-card">
+                    <div class="pc-img"><span class="pc-avail">Available</span></div>
+                    <h4>Central Plaza Parking</h4>
+                    <div class="pc-addr"><i class="fa-solid fa-location-dot"></i> MG Road, Bengaluru</div>
+                    <div class="pc-row">
+                        <div class="pc-chip"><div class="k">Car</div><div class="v">₹40<small>/hr</small></div></div>
+                        <div class="pc-chip"><div class="k">Bike</div><div class="v">₹20<small>/hr</small></div></div>
+                    </div>
+                    <div class="pc-book"><i class="fa-solid fa-lock"></i> Book &amp; Lock</div>
+                </div>
+
+                <div class="chip-float chip-pay">
+                    <div class="ic"><i class="fa-solid fa-check"></i></div>
+                    <div><div class="t">Paid</div><div class="b">₹120</div></div>
+                </div>
+
+                <div class="chip-float chip-time">
+                    <div class="ic"><i class="fa-solid fa-clock"></i></div>
+                    <div><div class="t">Booked</div><div class="b">2 hrs</div></div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ░░░░░░░░ MARQUEE ░░░░░░░░ -->
+<div class="lp-marquee">
+    <div class="marq">
+        <span>Compare spots Car &amp; Bike Google Maps Instant booking Verified owners Live pricing Secure payments</span>
+        <span>Compare spots Car &amp; Bike Google Maps Instant booking Verified owners Live pricing Secure payments</span>
+    </div>
+</div>
+
+<!-- ░░░░░░░░ HOW IT WORKS ░░░░░░░░ -->
+<section class="lp-how" id="how">
+    <div class="wrap">
+        <div class="sec-head reveal">
+            <div class="sec-kicker">How it works</div>
+            <h2>Parked in three taps</h2>
+            <p>No circling the block, no cash, no surprises. Lock-N-Go gets you from “where do I park?” to “locked in” in under a minute.</p>
+        </div>
+        <div class="steps">
+            <div class="step3d reveal d1">
+                <span class="big">1</span>
+                <div class="num">1</div>
+                <h3>Find</h3>
+                <p>Browse verified parking around you with live photos, pricing and slots for cars and bikes.</p>
+            </div>
+            <div class="step3d reveal d2">
+                <span class="big">2</span>
+                <div class="num">2</div>
+                <h3>Book</h3>
+                <p>Pick your vehicle, date and time. The price is calculated automatically — pay and you’re set.</p>
+            </div>
+            <div class="step3d reveal d3">
+                <span class="big">3</span>
+                <div class="num">3</div>
+                <h3>Lock-N-Go</h3>
+                <p>Your spot is held and confirmed. Drive in, lock up, and walk away with total peace of mind.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ░░░░░░░░ FEATURES (BENTO) ░░░░░░░░ -->
+<section class="lp-features" id="features">
+    <div class="wrap">
+        <div class="sec-head reveal">
+            <div class="sec-kicker">Why Lock-N-Go</div>
+            <h2>Everything you need to park smarter</h2>
+        </div>
+        <div class="bento">
+
+            <div class="cell lg reveal">
+                <div class="ic"><i class="fa-solid fa-shield-halved"></i></div>
+                <h3>Secure spots, verified owners</h3>
+                <p>Every parking space is reviewed and approved before it goes live — so the spot you book is the spot you get.</p>
+            </div>
+
+            <div class="cell wide reveal d1">
+                <div class="ic"><i class="fa-solid fa-code-compare"></i></div>
+                <h3>Compare instantly</h3>
+                <p>Put two lots side by side — price, slots and location — and pick the winner.</p>
+            </div>
+
+            <div class="cell reveal d2">
+                <div class="ic"><i class="fa-solid fa-map-location-dot"></i></div>
+                <h3>Open in Maps</h3>
+                <p>One tap to navigate.</p>
+            </div>
+
+            <div class="cell teal reveal d3">
+                <div class="ic"><i class="fa-solid fa-car-side"></i></div>
+                <h3>Car &amp; Bike</h3>
+                <p>Separate pricing for both.</p>
+            </div>
+
+            <div class="cell green reveal d1">
+                <div class="ic"><i class="fa-solid fa-bolt"></i></div>
+                <h3>Instant payment</h3>
+                <p>Auto-calculated, confirmed on the spot.</p>
+            </div>
+
+            <div class="cell wide reveal d2">
+                <div class="ic"><i class="fa-solid fa-square-parking"></i></div>
+                <h3>Live availability</h3>
+                <div class="slot-grid">
+                    <span class="slot free"></span><span class="slot free"></span>
+                    <span class="slot busy"></span><span class="slot free"></span>
+                    <span class="slot busy"></span><span class="slot free"></span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ░░░░░░░░ ROLES ░░░░░░░░ -->
+<section class="lp-roles" id="roles">
+    <div class="wrap">
+        <div class="sec-head reveal">
+            <div class="sec-kicker">Built for everyone</div>
+            <h2>Whether you park or you own</h2>
+        </div>
+        <div class="roles">
+
+            <div class="role3d driver reveal d1">
+                <div class="cap"><span class="ic"><i class="fa-solid fa-car"></i></span> Drivers</div>
+                <div class="body">
+                    <ul>
+                        <li><i class="fa-solid fa-circle-check"></i> Browse &amp; compare nearby parking</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Book a slot with entry &amp; exit time</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Auto-priced, instant confirmation</li>
+                        <li><i class="fa-solid fa-circle-check"></i> View your full booking history</li>
+                    </ul>
+                    <a class="go" href="/user-register/">Sign up as a driver <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="role3d owner reveal d2">
+                <div class="cap"><span class="ic"><i class="fa-solid fa-building"></i></span> Owners</div>
+                <div class="body">
+                    <ul>
+                        <li><i class="fa-solid fa-circle-check"></i> List your lot with photos &amp; docs</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Set car &amp; bike slots and pricing</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Get approved &amp; go live</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Track every booking you receive</li>
+                    </ul>
+                    <a class="go" href="/owner-register/">List your space <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="role3d admin reveal d3">
+                <div class="cap"><span class="ic"><i class="fa-solid fa-shield-halved"></i></span> Admins</div>
+                <div class="body">
+                    <ul>
+                        <li><i class="fa-solid fa-circle-check"></i> Approve &amp; verify owners</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Oversee all users &amp; lots</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Monitor every booking</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Keep the platform trusted</li>
+                    </ul>
+                    <a class="go" href="/login/">Admin login <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ░░░░░░░░ CTA BAND ░░░░░░░░ -->
+<section class="lp-cta">
+    <div class="wrap">
+        <div class="cta-band reveal">
+            <h2>Ready to lock in your spot?</h2>
+            <p>Join Lock-N-Go and never stress about parking again. Find. Book. Lock-N-Go.</p>
+            <div class="row">
+                <a class="b1" href="/user-register/">Find Parking</a>
+                <a class="b2" href="/owner-register/">List your space</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ░░░░░░░░ FOOTER ░░░░░░░░ -->
+<footer class="lp-foot">
+    <div class="wrap">
+        <div class="top">
+            <div>
+                <div class="brand">
+                    <svg class="lng-logo" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="width:36px;height:36px">
+                        <path d="M21 30 V21 a11 11 0 0 1 22 0 V30" fill="none" stroke="#60a5fa" stroke-width="6" stroke-linecap="round"/>
+                        <rect x="15" y="29" width="34" height="29" rx="9" fill="#2563eb"/>
+                        <circle cx="32" cy="41" r="5" fill="#fff"/>
+                        <path d="M32 45 v6" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+                    </svg>
+                    Lock<span>-N-Go</span>
+                </div>
+                <div class="tag">Lock it. Leave it. Lock-N-Go.</div>
+            </div>
+            <div class="cols">
+                <div class="col">
+                    <h5>Product</h5>
+                    <a href="#how">How it works</a>
+                    <a href="#features">Features</a>
+                    <a href="#roles">For you</a>
+                </div>
+                <div class="col">
+                    <h5>Account</h5>
+                    <a href="/login/">Log in</a>
+                    <a href="/user-register/">Sign up</a>
+                    <a href="/owner-register/">List your space</a>
+                </div>
+                <div class="col">
+                    <h5>Get the app</h5>
+                    <a href="#">Android</a>
+                    <a href="#">iOS</a>
+                </div>
+            </div>
+        </div>
+        <div class="bar">
+            <span>© 2026 Lock-N-Go. All rights reserved.</span>
+            <span>Smart parking, locked in.</span>
+        </div>
+    </div>
+</footer>
+
+<!-- ░░░░░░░░ JS ░░░░░░░░ -->
+<script>
+(function(){
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* nav scrolled state */
+    var nav = document.getElementById('lpNav');
+    function onScroll(){ nav.classList.toggle('scrolled', window.scrollY > 30); }
+    onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+    /* scroll reveal */
+    var revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window && !reduce){
+        var io = new IntersectionObserver(function(entries){
+            entries.forEach(function(e){
+                if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+            });
+        }, {threshold:0.16});
+        revealEls.forEach(function(el){ io.observe(el); });
+    } else {
+        revealEls.forEach(function(el){ el.classList.add('in'); });
+    }
+
+    /* hero 3D tilt */
+    var stage = document.getElementById('stage');
+    var s3d = document.getElementById('stage3d');
+    if (stage && s3d && !reduce && window.matchMedia('(pointer:fine)').matches){
+        stage.addEventListener('mousemove', function(ev){
+            var r = stage.getBoundingClientRect();
+            var px = (ev.clientX - r.left) / r.width;
+            var py = (ev.clientY - r.top) / r.height;
+            s3d.style.setProperty('--ry', (-16 + (px - 0.5) * 26) + 'deg');
+            s3d.style.setProperty('--rx', (8 - (py - 0.5) * 20) + 'deg');
+        });
+        stage.addEventListener('mouseleave', function(){
+            s3d.style.setProperty('--ry', '-16deg');
+            s3d.style.setProperty('--rx', '8deg');
+        });
+    }
+
+    /* stat count-up */
+    function countUp(el){
+        var target = parseFloat(el.getAttribute('data-count'));
+        var suffix = el.getAttribute('data-suffix') || '';
+        var decimals = (String(target).split('.')[1] || '').length;
+        var span = el.querySelector('span');
+        if (reduce){ span.textContent = target.toFixed(decimals); el.innerHTML = target.toFixed(decimals) + suffix; return; }
+        var start = null, dur = 1400;
+        function tick(t){
+            if(!start) start = t;
+            var p = Math.min((t - start) / dur, 1);
+            var eased = 1 - Math.pow(1 - p, 3);
+            var val = (target * eased).toFixed(decimals);
+            el.innerHTML = val + suffix;
+            if(p < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+    }
+    var stats = document.querySelectorAll('.hero-stats .n');
+    if ('IntersectionObserver' in window){
+        var io2 = new IntersectionObserver(function(entries){
+            entries.forEach(function(e){
+                if(e.isIntersecting){ countUp(e.target); io2.unobserve(e.target); }
+            });
+        }, {threshold:0.5});
+        stats.forEach(function(el){ io2.observe(el); });
+    } else {
+        stats.forEach(countUp);
+    }
+})();
+</script>
+
+</body>
+</html>

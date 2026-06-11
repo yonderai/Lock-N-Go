@@ -13,6 +13,11 @@ from django.shortcuts import render, redirect
 import uuid
 
 
+def landing(request):
+    # Public marketing landing page (front of the site)
+    return render(request, 'landing.html')
+
+
 def login_view(request):
     if request.method == "POST":
         login_input = request.POST.get('login_input')
@@ -176,7 +181,7 @@ def owner_register(request):
 
         request.session['account_type'] = 'Owner'
 
-        return redirect('/')
+        return redirect('/login/')
 
     return render(request, 'accounts/owner_register.html')
 
